@@ -17,7 +17,8 @@ import {
 } from 'lucide-react';
 
 export default function ProjectsPage() {
-  const { projects, employees, currentRole, addProject, updateProjectStatus } = useApp();
+  const { projects, employees, currentRole, addProject, updateProjectStatus } =
+    useApp();
 
   const [filterStatus, setFilterStatus] = useState<string>('all');
   const [isNewModalOpen, setIsNewModalOpen] = useState(false);
@@ -75,7 +76,9 @@ export default function ProjectsPage() {
       const exists = prev.members.includes(empId);
       return {
         ...prev,
-        members: exists ? prev.members.filter((id) => id !== empId) : [...prev.members, empId],
+        members: exists
+          ? prev.members.filter((id) => id !== empId)
+          : [...prev.members, empId],
       };
     });
   };
@@ -93,17 +96,24 @@ export default function ProjectsPage() {
         }}
       >
         <div>
-          <h1 className="heading-xl" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+          <h1
+            className="heading-xl"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}
+          >
             <FolderKanban size={28} color="var(--primary)" />
             <span>Projects Portfolio</span>
           </h1>
           <p className="subtext" style={{ marginTop: '0.25rem' }}>
-            Deliverable tracking across five lifecycle phases, client accounts, budget, and assigned team members.
+            Deliverable tracking across five lifecycle phases, client accounts,
+            budget, and assigned team members.
           </p>
         </div>
 
         {(currentRole === 'admin' || currentRole === 'project_manager') && (
-          <button onClick={() => setIsNewModalOpen(true)} className="btn btn-primary">
+          <button
+            onClick={() => setIsNewModalOpen(true)}
+            className="btn btn-primary"
+          >
             <Plus size={16} />
             <span>Create New Project</span>
           </button>
@@ -142,7 +152,12 @@ export default function ProjectsPage() {
         {filteredProjects.length === 0 ? (
           <div
             className="glass-card"
-            style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}
+            style={{
+              gridColumn: '1 / -1',
+              textAlign: 'center',
+              padding: '3rem',
+              color: 'var(--text-muted)',
+            }}
           >
             No projects found for the selected status filter.
           </div>
@@ -158,27 +173,59 @@ export default function ProjectsPage() {
                 position: 'relative',
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  gap: '0.5rem',
+                }}
+              >
                 <div>
                   <h3 className="heading-md">{project.name}</h3>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                    Client: <strong style={{ color: 'var(--text-primary)' }}>{project.client}</strong>
+                  <div
+                    style={{
+                      fontSize: '0.8rem',
+                      color: 'var(--text-secondary)',
+                      marginTop: '2px',
+                    }}
+                  >
+                    Client:{' '}
+                    <strong style={{ color: 'var(--text-primary)' }}>
+                      {project.client}
+                    </strong>
                   </div>
                 </div>
                 <StatusBadge type="project" status={project.status} />
               </div>
 
-              <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.4 }}>
+              <p
+                style={{
+                  fontSize: '0.85rem',
+                  color: 'var(--text-secondary)',
+                  lineHeight: 1.4,
+                }}
+              >
                 {project.description}
               </p>
 
               <div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', marginBottom: '0.35rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    fontSize: '0.8rem',
+                    marginBottom: '0.35rem',
+                  }}
+                >
                   <span style={{ color: 'var(--text-muted)' }}>Progress</span>
                   <span style={{ fontWeight: 600 }}>{project.progress}%</span>
                 </div>
                 <div className="progress-container">
-                  <div className="progress-bar" style={{ width: `${project.progress}%` }} />
+                  <div
+                    className="progress-bar"
+                    style={{ width: `${project.progress}%` }}
+                  />
                 </div>
               </div>
 
@@ -195,14 +242,26 @@ export default function ProjectsPage() {
               >
                 <div>
                   <span>Timeline:</span>
-                  <div style={{ color: 'var(--text-primary)', fontWeight: 500, marginTop: '2px' }}>
+                  <div
+                    style={{
+                      color: 'var(--text-primary)',
+                      fontWeight: 500,
+                      marginTop: '2px',
+                    }}
+                  >
                     {project.startDate} to {project.endDate}
                   </div>
                 </div>
                 {project.budget && (
                   <div>
                     <span>Budget:</span>
-                    <div style={{ color: '#34d399', fontWeight: 600, marginTop: '2px' }}>
+                    <div
+                      style={{
+                        color: '#34d399',
+                        fontWeight: 600,
+                        marginTop: '2px',
+                      }}
+                    >
                       {project.budget}
                     </div>
                   </div>
@@ -236,12 +295,22 @@ export default function ProjectsPage() {
                   })}
                 </div>
 
-                {(currentRole === 'admin' || currentRole === 'project_manager') && (
+                {(currentRole === 'admin' ||
+                  currentRole === 'project_manager') && (
                   <select
                     value={project.status}
-                    onChange={(e) => updateProjectStatus(project.id, e.target.value as ProjectStatus)}
+                    onChange={(e) =>
+                      updateProjectStatus(
+                        project.id,
+                        e.target.value as ProjectStatus,
+                      )
+                    }
                     className="form-select"
-                    style={{ width: 'auto', fontSize: '0.75rem', padding: '0.25rem 0.5rem' }}
+                    style={{
+                      width: 'auto',
+                      fontSize: '0.75rem',
+                      padding: '0.25rem 0.5rem',
+                    }}
                   >
                     <option value="planning">Planning</option>
                     <option value="in_progress">In Progress</option>
@@ -262,7 +331,10 @@ export default function ProjectsPage() {
         onClose={() => setIsNewModalOpen(false)}
         title="Create New Delivery Project"
       >
-        <form onSubmit={handleCreate} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <form
+          onSubmit={handleCreate}
+          style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+        >
           <div className="form-group">
             <label className="form-label">Project Name *</label>
             <input
@@ -294,18 +366,28 @@ export default function ProjectsPage() {
               placeholder="Summary of project goals and deliverables..."
               className="form-textarea"
               value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '1rem',
+            }}
+          >
             <div className="form-group">
               <label className="form-label">Start Date</label>
               <input
                 type="date"
                 className="form-input"
                 value={form.startDate}
-                onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, startDate: e.target.value })
+                }
               />
             </div>
 
@@ -321,13 +403,21 @@ export default function ProjectsPage() {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '1rem',
+            }}
+          >
             <div className="form-group">
               <label className="form-label">Initial Status</label>
               <select
                 className="form-select"
                 value={form.status}
-                onChange={(e) => setForm({ ...form, status: e.target.value as ProjectStatus })}
+                onChange={(e) =>
+                  setForm({ ...form, status: e.target.value as ProjectStatus })
+                }
               >
                 <option value="planning">Planning</option>
                 <option value="in_progress">In Progress</option>
@@ -350,7 +440,15 @@ export default function ProjectsPage() {
 
           <div className="form-group">
             <label className="form-label">Assign Team Members</label>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.5rem', maxHeight: '140px', overflowY: 'auto' }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '0.5rem',
+                maxHeight: '140px',
+                overflowY: 'auto',
+              }}
+            >
               {employees.map((emp) => {
                 const isSelected = form.members.includes(emp.id);
                 return (
@@ -365,14 +463,28 @@ export default function ProjectsPage() {
                       padding: '0.4rem 0.6rem',
                       borderRadius: 'var(--radius-sm)',
                       background: isSelected ? '#f0f9ff' : '#f8fafc',
-                      border: isSelected ? '1px solid #0284c7' : '1px solid var(--border-subtle)',
+                      border: isSelected
+                        ? '1px solid #0284c7'
+                        : '1px solid var(--border-subtle)',
                       color: 'var(--text-primary)',
                       cursor: 'pointer',
                       textAlign: 'left',
                     }}
                   >
-                    <img src={emp.avatar} alt={emp.name} className="avatar" style={{ width: '22px', height: '22px' }} />
-                    <span style={{ fontSize: '0.78rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    <img
+                      src={emp.avatar}
+                      alt={emp.name}
+                      className="avatar"
+                      style={{ width: '22px', height: '22px' }}
+                    />
+                    <span
+                      style={{
+                        fontSize: '0.78rem',
+                        whiteSpace: 'nowrap',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                      }}
+                    >
                       {emp.name}
                     </span>
                   </button>
@@ -381,8 +493,19 @@ export default function ProjectsPage() {
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
-            <button type="button" onClick={() => setIsNewModalOpen(false)} className="btn btn-secondary">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: '0.75rem',
+              marginTop: '1rem',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setIsNewModalOpen(false)}
+              className="btn btn-secondary"
+            >
               Cancel
             </button>
             <button type="submit" className="btn btn-primary">

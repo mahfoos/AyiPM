@@ -26,7 +26,6 @@ import {
   X,
 } from 'lucide-react';
 
-
 export default function NotificationsPage() {
   const router = useRouter();
   const {
@@ -42,7 +41,9 @@ export default function NotificationsPage() {
 
   const [search, setSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [statusFilter, setStatusFilter] = useState<'all' | 'unread' | 'read'>('all');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'unread' | 'read'>(
+    'all',
+  );
 
   // Relative time helper
   const formatRelativeTime = (timestamp: string) => {
@@ -60,7 +61,12 @@ export default function NotificationsPage() {
       if (diffHours < 24) return `${diffHours}h ago`;
       if (diffDays === 1) return 'Yesterday';
       if (diffDays < 7) return `${diffDays}d ago`;
-      return past.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+      return past.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+      });
     } catch {
       return timestamp;
     }
@@ -106,7 +112,8 @@ export default function NotificationsPage() {
 
   // Filter items
   const filteredNotifications = notifications.filter((item) => {
-    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
+    const matchesCategory =
+      selectedCategory === 'all' || item.category === selectedCategory;
     const matchesStatus =
       statusFilter === 'all' ||
       (statusFilter === 'unread' && !item.read) ||
@@ -114,7 +121,8 @@ export default function NotificationsPage() {
     const matchesSearch =
       item.title.toLowerCase().includes(search.toLowerCase()) ||
       item.message.toLowerCase().includes(search.toLowerCase()) ||
-      (item.sender && item.sender.name.toLowerCase().includes(search.toLowerCase()));
+      (item.sender &&
+        item.sender.name.toLowerCase().includes(search.toLowerCase()));
 
     return matchesCategory && matchesStatus && matchesSearch;
   });
@@ -160,7 +168,10 @@ export default function NotificationsPage() {
         }}
       >
         <div>
-          <h1 className="heading-xl" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+          <h1
+            className="heading-xl"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}
+          >
             <div
               style={{
                 width: '42px',
@@ -178,13 +189,24 @@ export default function NotificationsPage() {
             </div>
             <span>Notifications & Alert Center</span>
           </h1>
-          <p className="subtext" style={{ marginTop: '0.35rem', color: 'var(--text-secondary)' }}>
-            Real-time feed for task handoffs, leave review requests, attendance anomalies, and system milestones.
+          <p
+            className="subtext"
+            style={{ marginTop: '0.35rem', color: 'var(--text-secondary)' }}
+          >
+            Real-time feed for task handoffs, leave review requests, attendance
+            anomalies, and system milestones.
           </p>
         </div>
 
         {/* Global Action Buttons */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            flexWrap: 'wrap',
+          }}
+        >
           {unreadNotificationsCount > 0 && (
             <button
               type="button"
@@ -202,7 +224,12 @@ export default function NotificationsPage() {
             onClick={handleCreateTestNotification}
             className="btn btn-ghost btn-sm"
             title="Generate a live test alert"
-            style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', border: '1px dashed var(--border-medium)' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              border: '1px dashed var(--border-medium)',
+            }}
           >
             <Sparkles size={14} color="var(--primary)" />
             <span>Test Alert</span>
@@ -212,7 +239,9 @@ export default function NotificationsPage() {
             <button
               type="button"
               onClick={() => {
-                if (confirm('Are you sure you want to clear all notifications?')) {
+                if (
+                  confirm('Are you sure you want to clear all notifications?')
+                ) {
                   clearAllNotifications();
                 }
               }}
@@ -235,7 +264,15 @@ export default function NotificationsPage() {
         }}
       >
         {/* Metric 1: Total */}
-        <div className="card" style={{ padding: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div
+          className="card"
+          style={{
+            padding: '1.25rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
+        >
           <div
             style={{
               width: '46px',
@@ -251,15 +288,37 @@ export default function NotificationsPage() {
             <Bell size={22} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>Total Alerts</div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+            <div
+              style={{
+                fontSize: '0.8rem',
+                color: 'var(--text-muted)',
+                fontWeight: 600,
+              }}
+            >
+              Total Alerts
+            </div>
+            <div
+              style={{
+                fontSize: '1.5rem',
+                fontWeight: 800,
+                color: 'var(--text-primary)',
+              }}
+            >
               {notifications.length}
             </div>
           </div>
         </div>
 
         {/* Metric 2: Unread */}
-        <div className="card" style={{ padding: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div
+          className="card"
+          style={{
+            padding: '1.25rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
+        >
           <div
             style={{
               width: '46px',
@@ -276,15 +335,40 @@ export default function NotificationsPage() {
             <AlertCircle size={22} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>Unread Messages</div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: unreadNotificationsCount > 0 ? '#dc2626' : 'var(--text-primary)' }}>
+            <div
+              style={{
+                fontSize: '0.8rem',
+                color: 'var(--text-muted)',
+                fontWeight: 600,
+              }}
+            >
+              Unread Messages
+            </div>
+            <div
+              style={{
+                fontSize: '1.5rem',
+                fontWeight: 800,
+                color:
+                  unreadNotificationsCount > 0
+                    ? '#dc2626'
+                    : 'var(--text-primary)',
+              }}
+            >
               {unreadNotificationsCount}
             </div>
           </div>
         </div>
 
         {/* Metric 3: Tasks */}
-        <div className="card" style={{ padding: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div
+          className="card"
+          style={{
+            padding: '1.25rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
+        >
           <div
             style={{
               width: '46px',
@@ -301,15 +385,37 @@ export default function NotificationsPage() {
             <CheckSquare size={22} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>Task Updates</div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+            <div
+              style={{
+                fontSize: '0.8rem',
+                color: 'var(--text-muted)',
+                fontWeight: 600,
+              }}
+            >
+              Task Updates
+            </div>
+            <div
+              style={{
+                fontSize: '1.5rem',
+                fontWeight: 800,
+                color: 'var(--text-primary)',
+              }}
+            >
               {categoryCounts.task}
             </div>
           </div>
         </div>
 
         {/* Metric 4: Leaves & Attendance */}
-        <div className="card" style={{ padding: '1.25rem', display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div
+          className="card"
+          style={{
+            padding: '1.25rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1rem',
+          }}
+        >
           <div
             style={{
               width: '46px',
@@ -326,8 +432,22 @@ export default function NotificationsPage() {
             <PlaneTakeoff size={22} />
           </div>
           <div>
-            <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>Leave & Attendance</div>
-            <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text-primary)' }}>
+            <div
+              style={{
+                fontSize: '0.8rem',
+                color: 'var(--text-muted)',
+                fontWeight: 600,
+              }}
+            >
+              Leave & Attendance
+            </div>
+            <div
+              style={{
+                fontSize: '1.5rem',
+                fontWeight: 800,
+                color: 'var(--text-primary)',
+              }}
+            >
               {categoryCounts.leave + categoryCounts.attendance}
             </div>
           </div>
@@ -366,7 +486,11 @@ export default function NotificationsPage() {
               { id: 'all', label: 'All Alerts', count: categoryCounts.all },
               { id: 'task', label: 'Tasks', count: categoryCounts.task },
               { id: 'leave', label: 'Leaves', count: categoryCounts.leave },
-              { id: 'attendance', label: 'Attendance', count: categoryCounts.attendance },
+              {
+                id: 'attendance',
+                label: 'Attendance',
+                count: categoryCounts.attendance,
+              },
               { id: 'system', label: 'System', count: categoryCounts.system },
             ].map((tab) => {
               const isSelected = selectedCategory === tab.id;
@@ -381,7 +505,9 @@ export default function NotificationsPage() {
                     gap: '0.4rem',
                     padding: '0.45rem 0.85rem',
                     borderRadius: 'var(--radius-full)',
-                    border: isSelected ? '1px solid var(--primary)' : '1px solid var(--border-subtle)',
+                    border: isSelected
+                      ? '1px solid var(--primary)'
+                      : '1px solid var(--border-subtle)',
                     background: isSelected ? 'var(--primary)' : '#ffffff',
                     color: isSelected ? '#ffffff' : 'var(--text-secondary)',
                     fontSize: '0.8125rem',
@@ -432,10 +558,15 @@ export default function NotificationsPage() {
                   fontWeight: statusFilter === st.id ? 700 : 500,
                   borderRadius: 'var(--radius-md)',
                   border: 'none',
-                  background: statusFilter === st.id ? '#ffffff' : 'transparent',
-                  color: statusFilter === st.id ? 'var(--text-primary)' : 'var(--text-secondary)',
+                  background:
+                    statusFilter === st.id ? '#ffffff' : 'transparent',
+                  color:
+                    statusFilter === st.id
+                      ? 'var(--text-primary)'
+                      : 'var(--text-secondary)',
                   cursor: 'pointer',
-                  boxShadow: statusFilter === st.id ? 'var(--shadow-sm)' : 'none',
+                  boxShadow:
+                    statusFilter === st.id ? 'var(--shadow-sm)' : 'none',
                   transition: 'all 0.15s ease',
                 }}
               >
@@ -465,7 +596,6 @@ export default function NotificationsPage() {
             </button>
           )}
         </div>
-
       </div>
 
       {/* Notifications List */}
@@ -519,11 +649,13 @@ export default function NotificationsPage() {
               {search
                 ? `No notifications matched your query "${search}". Try different search terms or reset filters.`
                 : statusFilter === 'unread'
-                ? "You've read all your notifications! There are no unread alerts at this time."
-                : 'No notifications present in this category yet.'}
+                  ? "You've read all your notifications! There are no unread alerts at this time."
+                  : 'No notifications present in this category yet.'}
             </p>
 
-            {(search || selectedCategory !== 'all' || statusFilter !== 'all') && (
+            {(search ||
+              selectedCategory !== 'all' ||
+              statusFilter !== 'all') && (
               <button
                 type="button"
                 onClick={() => {
@@ -552,17 +684,24 @@ export default function NotificationsPage() {
                     alignItems: 'flex-start',
                     gap: '1.125rem',
                     padding: '1.125rem 1.5rem',
-                    borderBottom: idx === filteredNotifications.length - 1 ? 'none' : '1px solid var(--border-subtle)',
+                    borderBottom:
+                      idx === filteredNotifications.length - 1
+                        ? 'none'
+                        : '1px solid var(--border-subtle)',
                     background: item.read ? '#ffffff' : '#f8fafc',
                     cursor: item.link ? 'pointer' : 'default',
                     transition: 'all 0.15s ease',
                     position: 'relative',
                   }}
                   onMouseEnter={(e) => {
-                    e.currentTarget.style.background = item.read ? '#f8fafc' : '#f0f9ff';
+                    e.currentTarget.style.background = item.read
+                      ? '#f8fafc'
+                      : '#f0f9ff';
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.background = item.read ? '#ffffff' : '#f8fafc';
+                    e.currentTarget.style.background = item.read
+                      ? '#ffffff'
+                      : '#f8fafc';
                   }}
                 >
                   {/* Left Unread Bar Indicator */}
@@ -621,7 +760,9 @@ export default function NotificationsPage() {
                           style={{
                             fontSize: '0.9375rem',
                             fontWeight: item.read ? 600 : 700,
-                            color: item.read ? 'var(--text-secondary)' : 'var(--text-primary)',
+                            color: item.read
+                              ? 'var(--text-secondary)'
+                              : 'var(--text-primary)',
                           }}
                         >
                           {item.title}
@@ -693,7 +834,9 @@ export default function NotificationsPage() {
                     <p
                       style={{
                         fontSize: '0.84rem',
-                        color: item.read ? 'var(--text-muted)' : 'var(--text-secondary)',
+                        color: item.read
+                          ? 'var(--text-muted)'
+                          : 'var(--text-secondary)',
                         lineHeight: 1.5,
                         marginBottom: '0.625rem',
                       }}
@@ -728,12 +871,20 @@ export default function NotificationsPage() {
                       )}
 
                       <div
-                        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.5rem',
+                        }}
                         onClick={(e) => e.stopPropagation()}
                       >
                         <button
                           type="button"
-                          onClick={() => (item.read ? markAsUnread(item.id) : markAsRead(item.id))}
+                          onClick={() =>
+                            item.read
+                              ? markAsUnread(item.id)
+                              : markAsRead(item.id)
+                          }
                           className="btn btn-ghost btn-sm"
                           style={{
                             fontSize: '0.75rem',
@@ -744,7 +895,11 @@ export default function NotificationsPage() {
                             color: 'var(--text-secondary)',
                           }}
                         >
-                          {item.read ? <EyeOff size={14} /> : <Check size={14} />}
+                          {item.read ? (
+                            <EyeOff size={14} />
+                          ) : (
+                            <Check size={14} />
+                          )}
                           <span>{item.read ? 'Mark unread' : 'Mark read'}</span>
                         </button>
 

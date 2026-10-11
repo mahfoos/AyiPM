@@ -43,7 +43,10 @@ export default function GlobalSearch() {
   // Close on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -56,22 +59,50 @@ export default function GlobalSearch() {
   const hasQuery = cleanQ.length > 0;
 
   const matchedTasks = hasQuery
-    ? tasks.filter((t) => t.title.toLowerCase().includes(cleanQ) || t.projectName.toLowerCase().includes(cleanQ)).slice(0, 3)
+    ? tasks
+        .filter(
+          (t) =>
+            t.title.toLowerCase().includes(cleanQ) ||
+            t.projectName.toLowerCase().includes(cleanQ),
+        )
+        .slice(0, 3)
     : [];
 
   const matchedProjects = hasQuery
-    ? projects.filter((p) => p.name.toLowerCase().includes(cleanQ) || p.client.toLowerCase().includes(cleanQ)).slice(0, 3)
+    ? projects
+        .filter(
+          (p) =>
+            p.name.toLowerCase().includes(cleanQ) ||
+            p.client.toLowerCase().includes(cleanQ),
+        )
+        .slice(0, 3)
     : [];
 
   const matchedEmployees = hasQuery
-    ? employees.filter((e) => e.name.toLowerCase().includes(cleanQ) || e.designation.toLowerCase().includes(cleanQ)).slice(0, 3)
+    ? employees
+        .filter(
+          (e) =>
+            e.name.toLowerCase().includes(cleanQ) ||
+            e.designation.toLowerCase().includes(cleanQ),
+        )
+        .slice(0, 3)
     : [];
 
   const matchedNotifs = hasQuery
-    ? notifications.filter((n) => n.title.toLowerCase().includes(cleanQ) || n.message.toLowerCase().includes(cleanQ)).slice(0, 2)
+    ? notifications
+        .filter(
+          (n) =>
+            n.title.toLowerCase().includes(cleanQ) ||
+            n.message.toLowerCase().includes(cleanQ),
+        )
+        .slice(0, 2)
     : [];
 
-  const totalResults = matchedTasks.length + matchedProjects.length + matchedEmployees.length + matchedNotifs.length;
+  const totalResults =
+    matchedTasks.length +
+    matchedProjects.length +
+    matchedEmployees.length +
+    matchedNotifs.length;
 
   const handleSelect = (url: string) => {
     setIsOpen(false);
@@ -196,10 +227,20 @@ export default function GlobalSearch() {
                         textAlign: 'left',
                         transition: 'background 0.15s ease',
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = '#f0f9ff')}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.background = '#f0f9ff')
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.background = 'transparent')
+                      }
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.625rem',
+                        }}
+                      >
                         <div
                           style={{
                             background: '#e0f2fe',
@@ -212,10 +253,21 @@ export default function GlobalSearch() {
                           <CheckSquare size={14} />
                         </div>
                         <div>
-                          <div style={{ fontSize: '0.825rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                          <div
+                            style={{
+                              fontSize: '0.825rem',
+                              fontWeight: 600,
+                              color: 'var(--text-primary)',
+                            }}
+                          >
                             {t.title}
                           </div>
-                          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                          <div
+                            style={{
+                              fontSize: '0.72rem',
+                              color: 'var(--text-muted)',
+                            }}
+                          >
                             {t.projectName} &bull; {t.priority}
                           </div>
                         </div>
@@ -259,10 +311,20 @@ export default function GlobalSearch() {
                         textAlign: 'left',
                         transition: 'background 0.15s ease',
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = '#f5f3ff')}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.background = '#f5f3ff')
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.background = 'transparent')
+                      }
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.625rem',
+                        }}
+                      >
                         <div
                           style={{
                             background: '#ede9fe',
@@ -275,10 +337,21 @@ export default function GlobalSearch() {
                           <FolderKanban size={14} />
                         </div>
                         <div>
-                          <div style={{ fontSize: '0.825rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                          <div
+                            style={{
+                              fontSize: '0.825rem',
+                              fontWeight: 600,
+                              color: 'var(--text-primary)',
+                            }}
+                          >
                             {p.name}
                           </div>
-                          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                          <div
+                            style={{
+                              fontSize: '0.72rem',
+                              color: 'var(--text-muted)',
+                            }}
+                          >
                             {p.client} &bull; {p.progress}% done
                           </div>
                         </div>
@@ -322,20 +395,46 @@ export default function GlobalSearch() {
                         textAlign: 'left',
                         transition: 'background 0.15s ease',
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = '#ecfdf5')}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.background = '#ecfdf5')
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.background = 'transparent')
+                      }
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.625rem',
+                        }}
+                      >
                         <img
                           src={e.avatar}
                           alt={e.name}
-                          style={{ width: '24px', height: '24px', borderRadius: '50%', objectFit: 'cover' }}
+                          style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '50%',
+                            objectFit: 'cover',
+                          }}
                         />
                         <div>
-                          <div style={{ fontSize: '0.825rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                          <div
+                            style={{
+                              fontSize: '0.825rem',
+                              fontWeight: 600,
+                              color: 'var(--text-primary)',
+                            }}
+                          >
                             {e.name}
                           </div>
-                          <div style={{ fontSize: '0.72rem', color: 'var(--text-muted)' }}>
+                          <div
+                            style={{
+                              fontSize: '0.72rem',
+                              color: 'var(--text-muted)',
+                            }}
+                          >
                             {e.designation} &bull; {e.department}
                           </div>
                         </div>
@@ -379,10 +478,20 @@ export default function GlobalSearch() {
                         textAlign: 'left',
                         transition: 'background 0.15s ease',
                       }}
-                      onMouseEnter={(e) => (e.currentTarget.style.background = '#fef3c7')}
-                      onMouseLeave={(e) => (e.currentTarget.style.background = 'transparent')}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.background = '#fef3c7')
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.background = 'transparent')
+                      }
                     >
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+                      <div
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.625rem',
+                        }}
+                      >
                         <div
                           style={{
                             background: '#fef3c7',
@@ -395,7 +504,13 @@ export default function GlobalSearch() {
                           <Bell size={14} />
                         </div>
                         <div>
-                          <div style={{ fontSize: '0.825rem', fontWeight: 600, color: 'var(--text-primary)' }}>
+                          <div
+                            style={{
+                              fontSize: '0.825rem',
+                              fontWeight: 600,
+                              color: 'var(--text-primary)',
+                            }}
+                          >
                             {n.title}
                           </div>
                           <div

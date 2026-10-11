@@ -38,7 +38,7 @@ interface AppContextType {
   activityLog: ActivityLogItem[];
   notifications: NotificationItem[];
   unreadNotificationsCount: number;
-  
+
   // Actions
   addEmployee: (emp: Omit<Employee, 'id'>) => void;
   updateEmployeeRole: (id: string, newRole: UserRole) => void;
@@ -49,8 +49,14 @@ interface AppContextType {
   setEmployeeProjects: (employeeId: string, projectIds: string[]) => void;
   checkIn: (employeeId?: string, notes?: string) => void;
   checkOut: (employeeId?: string) => void;
-  submitLeaveRequest: (data: Omit<LeaveRequest, 'id' | 'status' | 'appliedOn' | 'employeeName'>) => void;
-  reviewLeaveRequest: (id: string, status: 'approved' | 'rejected', reason?: string) => void;
+  submitLeaveRequest: (
+    data: Omit<LeaveRequest, 'id' | 'status' | 'appliedOn' | 'employeeName'>,
+  ) => void;
+  reviewLeaveRequest: (
+    id: string,
+    status: 'approved' | 'rejected',
+    reason?: string,
+  ) => void;
   addProject: (data: Omit<Project, 'id' | 'progress'>) => void;
   updateProjectStatus: (id: string, status: ProjectStatus) => void;
   addTask: (data: Omit<Task, 'id' | 'comments' | 'history'>) => void;
@@ -61,29 +67,38 @@ interface AppContextType {
   markAllAsRead: () => void;
   deleteNotification: (id: string) => void;
   clearAllNotifications: () => void;
-  addNotification: (item: Omit<NotificationItem, 'id' | 'timestamp' | 'read'>) => void;
+  addNotification: (
+    item: Omit<NotificationItem, 'id' | 'timestamp' | 'read'>,
+  ) => void;
   resetAllData: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
-
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [currentRole, setCurrentRole] = useState<UserRole>('admin');
   const [employees, setEmployees] = useState<Employee[]>(initialEmployees);
   const [projects, setProjects] = useState<Project[]>(initialProjects);
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
-  const [attendance, setAttendance] = useState<AttendanceRecord[]>(initialAttendance);
-  const [leaveRequests, setLeaveRequests] = useState<LeaveRequest[]>(initialLeaveRequests);
-  const [leaveBalances, setLeaveBalances] = useState<Record<string, LeaveBalance>>(initialLeaveBalances);
-  const [activityLog, setActivityLog] = useState<ActivityLogItem[]>(initialActivityLog);
-  const [notifications, setNotifications] = useState<NotificationItem[]>(initialNotifications);
+  const [attendance, setAttendance] =
+    useState<AttendanceRecord[]>(initialAttendance);
+  const [leaveRequests, setLeaveRequests] =
+    useState<LeaveRequest[]>(initialLeaveRequests);
+  const [leaveBalances, setLeaveBalances] =
+    useState<Record<string, LeaveBalance>>(initialLeaveBalances);
+  const [activityLog, setActivityLog] =
+    useState<ActivityLogItem[]>(initialActivityLog);
+  const [notifications, setNotifications] =
+    useState<NotificationItem[]>(initialNotifications);
 
   // Load from localStorage if present
   useEffect(() => {
     try {
       const savedRole = localStorage.getItem('ayipm_role');
-      if (savedRole && ['admin', 'project_manager', 'employee'].includes(savedRole)) {
+      if (
+        savedRole &&
+        ['admin', 'project_manager', 'employee'].includes(savedRole)
+      ) {
         setCurrentRole(savedRole as UserRole);
       }
       const savedEmp = localStorage.getItem('ayipm_employees');
@@ -106,7 +121,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       // ignore
     }
   }, []);
-
 
   // Save changes to localStorage
   const saveState = (key: string, data: unknown) => {
@@ -135,7 +149,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     role: currentRole,
     status: 'active',
     joinDate: '2023-01-15',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+    avatar:
+      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
     phone: '',
     location: '',
   };
@@ -145,8 +160,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     (currentRole === 'admin'
       ? employees.find((e) => e.role === 'admin')
       : currentRole === 'project_manager'
-      ? employees.find((e) => e.role === 'project_manager')
-      : employees.find((e) => e.role === 'employee')) ||
+        ? employees.find((e) => e.role === 'project_manager')
+        : employees.find((e) => e.role === 'employee')) ||
     employees[0] ||
     defaultFallbackUser;
 
@@ -154,7 +169,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     action: string,
     entityType: ActivityLogItem['entityType'],
     entityName: string,
-    details?: string
+    details?: string,
   ) => {
     const newLog: ActivityLogItem = {
       id: `act-${Date.now()}`,
@@ -185,7 +200,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const markAsUnread = (id: string) => {
     setNotifications((prev) => {
-      const updated = prev.map((n) => (n.id === id ? { ...n, read: false } : n));
+      const updated = prev.map((n) =>
+        n.id === id ? { ...n, read: false } : n,
+      );
       saveState('ayipm_notifications', updated);
       return updated;
     });
@@ -212,7 +229,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     saveState('ayipm_notifications', []);
   };
 
-  const addNotification = (item: Omit<NotificationItem, 'id' | 'timestamp' | 'read'>) => {
+  const addNotification = (
+    item: Omit<NotificationItem, 'id' | 'timestamp' | 'read'>,
+  ) => {
     const newNotif: NotificationItem = {
       ...item,
       id: `notif-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`,
@@ -225,7 +244,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
   };
-
 
   const addEmployee = (empData: Omit<Employee, 'id'>) => {
     const newEmp: Employee = {
@@ -254,7 +272,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       saveState('ayipm_balances', updated);
       return updated;
     });
-    logActivity('Onboarded Employee', 'employee', newEmp.name, `Designation: ${newEmp.designation}`);
+    logActivity(
+      'Onboarded Employee',
+      'employee',
+      newEmp.name,
+      `Designation: ${newEmp.designation}`,
+    );
   };
 
   const toggleEmployeeStatus = (id: string) => {
@@ -263,10 +286,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         if (e.id === id) {
           const nextStatus = e.status === 'active' ? 'inactive' : 'active';
           logActivity(
-            nextStatus === 'active' ? 'Reactivated Employee' : 'Deactivated Employee',
+            nextStatus === 'active'
+              ? 'Reactivated Employee'
+              : 'Deactivated Employee',
             'employee',
             e.name,
-            `Status updated to ${nextStatus}`
+            `Status updated to ${nextStatus}`,
           );
           return { ...e, status: nextStatus as 'active' | 'inactive' };
         }
@@ -285,7 +310,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
             'Updated Employee Role',
             'employee',
             e.name,
-            `Role changed from ${e.role} to ${newRole}`
+            `Role changed from ${e.role} to ${newRole}`,
           );
           return { ...e, role: newRole };
         }
@@ -301,7 +326,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       const updated = prev.map((e) => {
         if (e.id === id) {
           const merged = { ...e, ...data };
-          logActivity('Updated Employee Profile', 'employee', merged.name, `Profile details updated`);
+          logActivity(
+            'Updated Employee Profile',
+            'employee',
+            merged.name,
+            `Profile details updated`,
+          );
           return merged;
         }
         return e;
@@ -325,7 +355,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     });
     const proj = projects.find((p) => p.id === projectId);
     if (emp && proj) {
-      logActivity('Assigned to Project', 'project', proj.name, `Assigned ${emp.name} to ${proj.name}`);
+      logActivity(
+        'Assigned to Project',
+        'project',
+        proj.name,
+        `Assigned ${emp.name} to ${proj.name}`,
+      );
       addNotification({
         title: 'Project Assignment',
         message: `${emp.name} was assigned to project "${proj.name}".`,
@@ -350,7 +385,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     });
     const proj = projects.find((p) => p.id === projectId);
     if (emp && proj) {
-      logActivity('Removed from Project', 'project', proj.name, `Removed ${emp.name} from ${proj.name}`);
+      logActivity(
+        'Removed from Project',
+        'project',
+        proj.name,
+        `Removed ${emp.name} from ${proj.name}`,
+      );
     }
   };
 
@@ -375,7 +415,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         'Updated Project Assignments',
         'project',
         emp.name,
-        `Allocated to ${projectIds.length} project(s)`
+        `Allocated to ${projectIds.length} project(s)`,
       );
       addNotification({
         title: 'Project Assignments Updated',
@@ -399,7 +439,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     const timeStr = `${hours}:${mins}`;
 
     // Derivation rule: after 09:15 is considered late
-    const isLate = now.getHours() > 9 || (now.getHours() === 9 && now.getMinutes() > 15);
+    const isLate =
+      now.getHours() > 9 || (now.getHours() === 9 && now.getMinutes() > 15);
     const status = isLate ? 'late' : 'present';
 
     const newRec: AttendanceRecord = {
@@ -410,18 +451,29 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       checkIn: timeStr,
       status,
       workingHours: 0.1,
-      notes: notes || (isLate ? 'Checked in after 09:15 grace window' : 'Regular on-time check-in'),
+      notes:
+        notes ||
+        (isLate
+          ? 'Checked in after 09:15 grace window'
+          : 'Regular on-time check-in'),
     };
 
     setAttendance((prev) => {
       // Remove any duplicate today record for this employee
-      const filtered = prev.filter((r) => !(r.employeeId === empId && r.date === todayStr));
+      const filtered = prev.filter(
+        (r) => !(r.employeeId === empId && r.date === todayStr),
+      );
       const updated = [newRec, ...filtered];
       saveState('ayipm_attendance', updated);
       return updated;
     });
 
-    logActivity('Attendance Check-In', 'attendance', emp.name, `Recorded check-in at ${timeStr} (${status})`);
+    logActivity(
+      'Attendance Check-In',
+      'attendance',
+      emp.name,
+      `Recorded check-in at ${timeStr} (${status})`,
+    );
     if (isLate) {
       addNotification({
         title: 'Late Attendance Alert',
@@ -448,7 +500,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           const [inH, inM] = r.checkIn.split(':').map(Number);
           let calcHours = 8.0;
           if (!isNaN(inH) && !isNaN(inM)) {
-            const diffMin = (now.getHours() * 60 + now.getMinutes()) - (inH * 60 + inM);
+            const diffMin =
+              now.getHours() * 60 + now.getMinutes() - (inH * 60 + inM);
             calcHours = Math.max(0.5, Math.round((diffMin / 60) * 10) / 10);
           }
           const finalStatus = calcHours < 4.5 ? 'half_day' : r.status;
@@ -465,11 +518,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       return updated;
     });
 
-    logActivity('Attendance Check-Out', 'attendance', currentUser.name, `Checked out at ${timeStr}`);
+    logActivity(
+      'Attendance Check-Out',
+      'attendance',
+      currentUser.name,
+      `Checked out at ${timeStr}`,
+    );
   };
 
   const submitLeaveRequest = (
-    data: Omit<LeaveRequest, 'id' | 'status' | 'appliedOn' | 'employeeName'>
+    data: Omit<LeaveRequest, 'id' | 'status' | 'appliedOn' | 'employeeName'>,
   ) => {
     const emp = employees.find((e) => e.id === data.employeeId) || currentUser;
     const newReq: LeaveRequest = {
@@ -490,7 +548,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       'Submitted Leave Request',
       'leave',
       `${emp.name} (${data.days}d ${data.leaveType})`,
-      `Dates: ${data.startDate} to ${data.endDate}`
+      `Dates: ${data.startDate} to ${data.endDate}`,
     );
 
     addNotification({
@@ -503,11 +561,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-
   const reviewLeaveRequest = (
     id: string,
     status: 'approved' | 'rejected',
-    reason?: string
+    reason?: string,
   ) => {
     let affectedReq: LeaveRequest | undefined;
     setLeaveRequests((prev) => {
@@ -517,7 +574,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
           return {
             ...req,
             status,
-            rejectionReason: status === 'rejected' ? reason || 'Policy requirement unfulfilled' : undefined,
+            rejectionReason:
+              status === 'rejected'
+                ? reason || 'Policy requirement unfulfilled'
+                : undefined,
             approvedBy: `${currentUser.name} (${currentUser.role})`,
           };
         }
@@ -544,8 +604,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
             affectedReq!.leaveType === 'Annual'
               ? 'annualUsed'
               : affectedReq!.leaveType === 'Sick'
-              ? 'sickUsed'
-              : 'casualUsed';
+                ? 'sickUsed'
+                : 'casualUsed';
           const updated = {
             ...prev,
             [affectedReq!.employeeId]: {
@@ -580,7 +640,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         `${status === 'approved' ? 'Approved' : 'Rejected'} Leave Request`,
         'leave',
         `${affectedReq.employeeName} (${affectedReq.leaveType})`,
-        status === 'rejected' ? `Reason: ${reason}` : 'Leave balance and calendar updated'
+        status === 'rejected'
+          ? `Reason: ${reason}`
+          : 'Leave balance and calendar updated',
       );
 
       addNotification({
@@ -593,7 +655,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-
   const addProject = (data: Omit<Project, 'id' | 'progress'>) => {
     const newProj: Project = {
       ...data,
@@ -605,14 +666,24 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       saveState('ayipm_projects', updated);
       return updated;
     });
-    logActivity('Created Project', 'project', newProj.name, `Client: ${newProj.client}`);
+    logActivity(
+      'Created Project',
+      'project',
+      newProj.name,
+      `Client: ${newProj.client}`,
+    );
   };
 
   const updateProjectStatus = (id: string, status: ProjectStatus) => {
     setProjects((prev) => {
       const updated = prev.map((p) => {
         if (p.id === id) {
-          logActivity('Updated Project Status', 'project', p.name, `Status set to ${status}`);
+          logActivity(
+            'Updated Project Status',
+            'project',
+            p.name,
+            `Status set to ${status}`,
+          );
           return {
             ...p,
             status,
@@ -645,13 +716,23 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       saveState('ayipm_tasks', updated);
       return updated;
     });
-    logActivity('Created Task', 'task', newTask.title, `Assigned to ${newTask.assigneeName}`);
+    logActivity(
+      'Created Task',
+      'task',
+      newTask.title,
+      `Assigned to ${newTask.assigneeName}`,
+    );
     addNotification({
       title: 'New Task Created',
       message: `"${newTask.title}" was assigned to ${newTask.assigneeName}.`,
       category: 'task',
       link: '/tasks',
-      priority: newTask.priority === 'urgent' ? 'urgent' : newTask.priority === 'high' ? 'high' : 'normal',
+      priority:
+        newTask.priority === 'urgent'
+          ? 'urgent'
+          : newTask.priority === 'high'
+            ? 'high'
+            : 'normal',
       sender: { name: currentUser.name, avatar: currentUser.avatar },
     });
   };
@@ -666,7 +747,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
               id: `h-${Date.now()}`,
               action: `Changed status to ${status.replace('_', ' ')}`,
               author: currentUser.name,
-              timestamp: new Date().toISOString().replace('T', ' ').slice(0, 16),
+              timestamp: new Date()
+                .toISOString()
+                .replace('T', ' ')
+                .slice(0, 16),
             },
           ];
           return { ...t, status, history: hist };
@@ -678,7 +762,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     });
     const targetTask = tasks.find((t) => t.id === taskId);
     if (targetTask) {
-      logActivity('Moved Task', 'task', targetTask.title, `Moved to ${status.replace('_', ' ')}`);
+      logActivity(
+        'Moved Task',
+        'task',
+        targetTask.title,
+        `Moved to ${status.replace('_', ' ')}`,
+      );
       addNotification({
         title: 'Task Status Updated',
         message: `"${targetTask.title}" moved to ${status.replace('_', ' ')}.`,
@@ -765,7 +854,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       {children}
     </AppContext.Provider>
   );
-
 }
 
 export function useApp() {

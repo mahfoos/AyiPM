@@ -14,7 +14,8 @@ export interface Employee {
   location: string;
 }
 
-export type AttendanceStatus = 'present' | 'late' | 'half_day' | 'absent' | 'leave';
+export type AttendanceStatus =
+  'present' | 'late' | 'half_day' | 'absent' | 'leave';
 
 export interface AttendanceRecord {
   id: string;
@@ -56,7 +57,8 @@ export interface LeaveBalance {
   casualUsed: number;
 }
 
-export type ProjectStatus = 'planning' | 'in_progress' | 'in_review' | 'on_hold' | 'completed';
+export type ProjectStatus =
+  'planning' | 'in_progress' | 'in_review' | 'on_hold' | 'completed';
 
 export interface Project {
   id: string;
@@ -132,4 +134,3 @@ export interface NotificationItem {
     avatar?: string;
   };
 }
-

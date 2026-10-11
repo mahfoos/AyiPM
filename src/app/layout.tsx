@@ -6,7 +6,8 @@ import Navbar from '@/components/Navbar';
 
 export const metadata: Metadata = {
   title: 'AyiPM — Employee & Project Management System',
-  description: 'Internal company management system replacing spreadsheets for people, attendance, leave, projects, and Kanban task delivery.',
+  description:
+    'Internal company management system replacing spreadsheets for people, attendance, leave, projects, and Kanban task delivery.',
 };
 
 export default function RootLayout({

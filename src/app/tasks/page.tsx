@@ -60,7 +60,8 @@ export default function TasksPage() {
   const filteredTasks = tasks.filter((t) => {
     const matchProj = projectFilter === 'all' || t.projectId === projectFilter;
     const matchPrio = priorityFilter === 'all' || t.priority === priorityFilter;
-    const matchAssignee = assigneeFilter === 'all' || t.assigneeId === assigneeFilter;
+    const matchAssignee =
+      assigneeFilter === 'all' || t.assigneeId === assigneeFilter;
     return matchProj && matchPrio && matchAssignee;
   });
 
@@ -80,7 +81,9 @@ export default function TasksPage() {
       projectName: proj?.name || 'General Project',
       assigneeId: formData.assigneeId,
       assigneeName: emp?.name || 'Unassigned',
-      assigneeAvatar: emp?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
+      assigneeAvatar:
+        emp?.avatar ||
+        'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
       priority: formData.priority,
       dueDate: formData.dueDate,
       status: formData.status,
@@ -134,16 +137,23 @@ export default function TasksPage() {
         }}
       >
         <div>
-          <h1 className="heading-xl" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+          <h1
+            className="heading-xl"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}
+          >
             <CheckSquare size={28} color="var(--primary)" />
             <span>Tasks & Delivery Kanban</span>
           </h1>
           <p className="subtext" style={{ marginTop: '0.25rem' }}>
-            Agile task boards, multi-assignee tracking, due-date audit, and collaborative discussion threads.
+            Agile task boards, multi-assignee tracking, due-date audit, and
+            collaborative discussion threads.
           </p>
         </div>
 
-        <button onClick={() => setIsNewTaskModalOpen(true)} className="btn btn-primary">
+        <button
+          onClick={() => setIsNewTaskModalOpen(true)}
+          className="btn btn-primary"
+        >
           <Plus size={16} />
           <span>New Task</span>
         </button>
@@ -162,7 +172,11 @@ export default function TasksPage() {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <Filter size={15} color="var(--text-muted)" />
-          <span style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}>Filter by:</span>
+          <span
+            style={{ fontSize: '0.8125rem', color: 'var(--text-secondary)' }}
+          >
+            Filter by:
+          </span>
         </div>
 
         <select
@@ -206,7 +220,9 @@ export default function TasksPage() {
           ))}
         </select>
 
-        {(projectFilter !== 'all' || priorityFilter !== 'all' || assigneeFilter !== 'all') && (
+        {(projectFilter !== 'all' ||
+          priorityFilter !== 'all' ||
+          assigneeFilter !== 'all') && (
           <button
             onClick={() => {
               setProjectFilter('all');
@@ -254,7 +270,13 @@ export default function TasksPage() {
                   alignItems: 'center',
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                  }}
+                >
                   <div
                     style={{
                       width: '10px',
@@ -263,7 +285,9 @@ export default function TasksPage() {
                       background: col.color,
                     }}
                   />
-                  <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>{col.label}</span>
+                  <span style={{ fontWeight: 700, fontSize: '0.9rem' }}>
+                    {col.label}
+                  </span>
                 </div>
                 <span
                   style={{
@@ -302,7 +326,8 @@ export default function TasksPage() {
                   </div>
                 ) : (
                   colTasks.map((task) => {
-                    const isOverdue = task.dueDate < todayStr && task.status !== 'done';
+                    const isOverdue =
+                      task.dueDate < todayStr && task.status !== 'done';
 
                     return (
                       <div
@@ -317,7 +342,14 @@ export default function TasksPage() {
                         }}
                         onClick={() => setSelectedTask(task)}
                       >
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '0.5rem' }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start',
+                            gap: '0.5rem',
+                          }}
+                        >
                           <span
                             style={{
                               fontSize: '0.72rem',
@@ -329,10 +361,20 @@ export default function TasksPage() {
                           >
                             {task.projectName}
                           </span>
-                          <StatusBadge type="task-priority" status={task.priority} />
+                          <StatusBadge
+                            type="task-priority"
+                            status={task.priority}
+                          />
                         </div>
 
-                        <div style={{ fontWeight: 600, fontSize: '0.875rem', color: 'var(--text-primary)', lineHeight: 1.3 }}>
+                        <div
+                          style={{
+                            fontWeight: 600,
+                            fontSize: '0.875rem',
+                            color: 'var(--text-primary)',
+                            lineHeight: 1.3,
+                          }}
+                        >
                           {task.title}
                         </div>
 
@@ -360,7 +402,13 @@ export default function TasksPage() {
                             fontSize: '0.75rem',
                           }}
                         >
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                          <div
+                            style={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: '0.35rem',
+                            }}
+                          >
                             <img
                               src={task.assigneeAvatar}
                               alt={task.assigneeName}
@@ -368,7 +416,15 @@ export default function TasksPage() {
                               className="avatar"
                               style={{ width: '22px', height: '22px' }}
                             />
-                            <span style={{ color: 'var(--text-secondary)', maxWidth: '90px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            <span
+                              style={{
+                                color: 'var(--text-secondary)',
+                                maxWidth: '90px',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis',
+                                whiteSpace: 'nowrap',
+                              }}
+                            >
                               {task.assigneeName}
                             </span>
                           </div>
@@ -378,7 +434,9 @@ export default function TasksPage() {
                               display: 'flex',
                               alignItems: 'center',
                               gap: '0.25rem',
-                              color: isOverdue ? 'var(--danger)' : 'var(--text-muted)',
+                              color: isOverdue
+                                ? 'var(--danger)'
+                                : 'var(--text-muted)',
                               fontWeight: isOverdue ? 600 : 400,
                             }}
                           >
@@ -400,16 +458,28 @@ export default function TasksPage() {
                           }}
                           onClick={(e) => e.stopPropagation()}
                         >
-                          <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Move to:</span>
+                          <span
+                            style={{
+                              fontSize: '0.7rem',
+                              color: 'var(--text-muted)',
+                            }}
+                          >
+                            Move to:
+                          </span>
                           <div style={{ display: 'flex', gap: '0.25rem' }}>
                             {columns
                               .filter((c) => c.id !== task.status)
                               .map((c) => (
                                 <button
                                   key={c.id}
-                                  onClick={() => updateTaskStatus(task.id, c.id)}
+                                  onClick={() =>
+                                    updateTaskStatus(task.id, c.id)
+                                  }
                                   className="btn btn-sm btn-outline"
-                                  style={{ padding: '0.15rem 0.4rem', fontSize: '0.68rem' }}
+                                  style={{
+                                    padding: '0.15rem 0.4rem',
+                                    fontSize: '0.68rem',
+                                  }}
                                 >
                                   {c.label}
                                 </button>
@@ -432,7 +502,10 @@ export default function TasksPage() {
         onClose={() => setIsNewTaskModalOpen(false)}
         title="Create New Delivery Task"
       >
-        <form onSubmit={handleCreateTask} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <form
+          onSubmit={handleCreateTask}
+          style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+        >
           <div className="form-group">
             <label className="form-label">Task Title *</label>
             <input
@@ -441,7 +514,9 @@ export default function TasksPage() {
               placeholder="e.g. Implement schema migration runner"
               className="form-input"
               value={formData.title}
-              onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, title: e.target.value })
+              }
             />
           </div>
 
@@ -452,17 +527,27 @@ export default function TasksPage() {
               placeholder="Detailed acceptance criteria and task notes..."
               className="form-textarea"
               value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
             />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '1rem',
+            }}
+          >
             <div className="form-group">
               <label className="form-label">Project *</label>
               <select
                 className="form-select"
                 value={formData.projectId}
-                onChange={(e) => setFormData({ ...formData, projectId: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, projectId: e.target.value })
+                }
               >
                 {projects.map((p) => (
                   <option key={p.id} value={p.id}>
@@ -477,7 +562,9 @@ export default function TasksPage() {
               <select
                 className="form-select"
                 value={formData.assigneeId}
-                onChange={(e) => setFormData({ ...formData, assigneeId: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, assigneeId: e.target.value })
+                }
               >
                 {employees.map((emp) => (
                   <option key={emp.id} value={emp.id}>
@@ -488,13 +575,24 @@ export default function TasksPage() {
             </div>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '1rem',
+            }}
+          >
             <div className="form-group">
               <label className="form-label">Priority</label>
               <select
                 className="form-select"
                 value={formData.priority}
-                onChange={(e) => setFormData({ ...formData, priority: e.target.value as TaskPriority })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    priority: e.target.value as TaskPriority,
+                  })
+                }
               >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -510,13 +608,26 @@ export default function TasksPage() {
                 required
                 className="form-input"
                 value={formData.dueDate}
-                onChange={(e) => setFormData({ ...formData, dueDate: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, dueDate: e.target.value })
+                }
               />
             </div>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
-            <button type="button" onClick={() => setIsNewTaskModalOpen(false)} className="btn btn-secondary">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: '0.75rem',
+              marginTop: '1rem',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setIsNewTaskModalOpen(false)}
+              className="btn btn-secondary"
+            >
               Cancel
             </button>
             <button type="submit" className="btn btn-primary">
@@ -534,18 +645,41 @@ export default function TasksPage() {
           title={`Task: ${selectedTask.title}`}
           maxWidth="640px"
         >
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: '0.85rem', color: '#38bdf8', fontWeight: 600 }}>
+          <div
+            style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+            >
+              <span
+                style={{
+                  fontSize: '0.85rem',
+                  color: '#38bdf8',
+                  fontWeight: 600,
+                }}
+              >
                 {selectedTask.projectName}
               </span>
               <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <StatusBadge type="task-priority" status={selectedTask.priority} />
+                <StatusBadge
+                  type="task-priority"
+                  status={selectedTask.priority}
+                />
                 <StatusBadge type="task-status" status={selectedTask.status} />
               </div>
             </div>
 
-            <p style={{ fontSize: '0.9rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+            <p
+              style={{
+                fontSize: '0.9rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.5,
+              }}
+            >
               {selectedTask.description || 'No detailed description provided.'}
             </p>
 
@@ -563,15 +697,39 @@ export default function TasksPage() {
             >
               <div>
                 <span style={{ color: 'var(--text-muted)' }}>Assigned to:</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginTop: '0.25rem' }}>
-                  <img src={selectedTask.assigneeAvatar} alt={selectedTask.assigneeName} className="avatar" style={{ width: '26px', height: '26px' }} />
-                  <span style={{ fontWeight: 600 }}>{selectedTask.assigneeName}</span>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    marginTop: '0.25rem',
+                  }}
+                >
+                  <img
+                    src={selectedTask.assigneeAvatar}
+                    alt={selectedTask.assigneeName}
+                    className="avatar"
+                    style={{ width: '26px', height: '26px' }}
+                  />
+                  <span style={{ fontWeight: 600 }}>
+                    {selectedTask.assigneeName}
+                  </span>
                 </div>
               </div>
 
               <div>
-                <span style={{ color: 'var(--text-muted)' }}>Target Deadline:</span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.25rem', fontWeight: 600 }}>
+                <span style={{ color: 'var(--text-muted)' }}>
+                  Target Deadline:
+                </span>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.4rem',
+                    marginTop: '0.25rem',
+                    fontWeight: 600,
+                  }}
+                >
                   <Calendar size={15} />
                   <span>{selectedTask.dueDate}</span>
                 </div>
@@ -580,10 +738,18 @@ export default function TasksPage() {
 
             {/* Change Status Controls */}
             <div>
-              <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', fontWeight: 600 }}>
+              <span
+                style={{
+                  fontSize: '0.8rem',
+                  color: 'var(--text-muted)',
+                  fontWeight: 600,
+                }}
+              >
                 Change Workflow Status
               </span>
-              <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.35rem' }}>
+              <div
+                style={{ display: 'flex', gap: '0.5rem', marginTop: '0.35rem' }}
+              >
                 {columns.map((c) => (
                   <button
                     key={c.id}
@@ -600,15 +766,39 @@ export default function TasksPage() {
             </div>
 
             {/* Comments Thread */}
-            <div style={{ borderTop: '1px solid var(--border-subtle)', paddingTop: '1rem' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
+            <div
+              style={{
+                borderTop: '1px solid var(--border-subtle)',
+                paddingTop: '1rem',
+              }}
+            >
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  marginBottom: '0.75rem',
+                }}
+              >
                 <MessageSquare size={16} color="var(--primary)" />
-                <span style={{ fontSize: '0.875rem', fontWeight: 600 }}>Comments & Notes</span>
+                <span style={{ fontSize: '0.875rem', fontWeight: 600 }}>
+                  Comments & Notes
+                </span>
               </div>
 
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', maxHeight: '180px', overflowY: 'auto' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.75rem',
+                  maxHeight: '180px',
+                  overflowY: 'auto',
+                }}
+              >
                 {selectedTask.comments.length === 0 ? (
-                  <div style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                  <div
+                    style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}
+                  >
                     No comments yet. Start the conversation below.
                   </div>
                 ) : (
@@ -623,17 +813,37 @@ export default function TasksPage() {
                         fontSize: '0.825rem',
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
-                        <span style={{ fontWeight: 600, color: '#38bdf8' }}>{c.authorName}</span>
-                        <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>{c.timestamp}</span>
+                      <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          marginBottom: '0.25rem',
+                        }}
+                      >
+                        <span style={{ fontWeight: 600, color: '#38bdf8' }}>
+                          {c.authorName}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: '0.7rem',
+                            color: 'var(--text-muted)',
+                          }}
+                        >
+                          {c.timestamp}
+                        </span>
                       </div>
-                      <div style={{ color: 'var(--text-primary)' }}>{c.text}</div>
+                      <div style={{ color: 'var(--text-primary)' }}>
+                        {c.text}
+                      </div>
                     </div>
                   ))
                 )}
               </div>
 
-              <form onSubmit={handleAddComment} style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem' }}>
+              <form
+                onSubmit={handleAddComment}
+                style={{ display: 'flex', gap: '0.5rem', marginTop: '0.75rem' }}
+              >
                 <input
                   type="text"
                   placeholder="Add a comment or progress note..."

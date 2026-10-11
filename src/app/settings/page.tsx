@@ -69,12 +69,16 @@ export default function SettingsPage() {
     <div className="page-container">
       {/* Header */}
       <div>
-        <h1 className="heading-xl" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+        <h1
+          className="heading-xl"
+          style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}
+        >
           <Settings size={28} color="var(--primary)" />
           <span>Settings</span>
         </h1>
         <p className="subtext" style={{ marginTop: '0.25rem' }}>
-          Manage your profile, notification preferences, and workspace configuration.
+          Manage your profile, notification preferences, and workspace
+          configuration.
         </p>
       </div>
 
@@ -89,7 +93,12 @@ export default function SettingsPage() {
         {/* Section Navigation */}
         <nav
           className="glass-card"
-          style={{ padding: '0.5rem', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}
+          style={{
+            padding: '0.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.25rem',
+          }}
         >
           {visibleSections.map((s) => {
             const Icon = s.icon;
@@ -106,7 +115,9 @@ export default function SettingsPage() {
                   padding: '0.6rem 0.75rem',
                   borderRadius: 'var(--radius-md)',
                   background: isActive ? '#f0f9ff' : 'transparent',
-                  border: isActive ? '1px solid #bae6fd' : '1px solid transparent',
+                  border: isActive
+                    ? '1px solid #bae6fd'
+                    : '1px solid transparent',
                   color: isActive ? '#0284c7' : 'var(--text-secondary)',
                   fontSize: '0.875rem',
                   fontWeight: isActive ? 700 : 500,
@@ -126,9 +137,19 @@ export default function SettingsPage() {
         <form
           onSubmit={handleSave}
           className="glass-card"
-          style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
+          style={{
+            padding: '1.5rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '1.25rem',
+          }}
         >
-          <div style={{ borderBottom: '1px solid var(--border-subtle)', paddingBottom: '1rem' }}>
+          <div
+            style={{
+              borderBottom: '1px solid var(--border-subtle)',
+              paddingBottom: '1rem',
+            }}
+          >
             <h2 className="heading-md">{current.label}</h2>
             <p className="subtext" style={{ marginTop: '0.25rem' }}>
               {current.desc}
@@ -137,7 +158,9 @@ export default function SettingsPage() {
 
           {current.key === 'profile' && (
             <>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+              <div
+                style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
+              >
                 <img
                   src={currentUser.avatar}
                   alt={currentUser.name}
@@ -151,34 +174,75 @@ export default function SettingsPage() {
                   </div>
                 </div>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '1rem',
+                }}
+              >
                 <div className="form-group">
                   <label className="form-label">Full Name</label>
-                  <input className="form-input" defaultValue={currentUser.name} />
+                  <input
+                    className="form-input"
+                    defaultValue={currentUser.name}
+                  />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Email</label>
-                  <input type="email" className="form-input" defaultValue={currentUser.email} />
+                  <input
+                    type="email"
+                    className="form-input"
+                    defaultValue={currentUser.email}
+                  />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Phone</label>
-                  <input className="form-input" defaultValue={currentUser.phone} />
+                  <input
+                    className="form-input"
+                    defaultValue={currentUser.phone}
+                  />
                 </div>
                 <div className="form-group">
                   <label className="form-label">Location</label>
-                  <input className="form-input" defaultValue={currentUser.location} />
+                  <input
+                    className="form-input"
+                    defaultValue={currentUser.location}
+                  />
                 </div>
               </div>
             </>
           )}
 
           {current.key === 'notifications' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.75rem',
+              }}
+            >
               {[
-                { id: 'leave', label: 'Leave request updates', defaultOn: true },
-                { id: 'tasks', label: 'Task assignments and status changes', defaultOn: true },
-                { id: 'projects', label: 'Project milestone reminders', defaultOn: false },
-                { id: 'digest', label: 'Weekly activity digest email', defaultOn: false },
+                {
+                  id: 'leave',
+                  label: 'Leave request updates',
+                  defaultOn: true,
+                },
+                {
+                  id: 'tasks',
+                  label: 'Task assignments and status changes',
+                  defaultOn: true,
+                },
+                {
+                  id: 'projects',
+                  label: 'Project milestone reminders',
+                  defaultOn: false,
+                },
+                {
+                  id: 'digest',
+                  label: 'Weekly activity digest email',
+                  defaultOn: false,
+                },
               ].map((n) => (
                 <label
                   key={n.id}
@@ -201,7 +265,13 @@ export default function SettingsPage() {
           )}
 
           {current.key === 'workspace' && (
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr',
+                gap: '1rem',
+              }}
+            >
               <div className="form-group">
                 <label className="form-label">Company Name</label>
                 <input className="form-input" defaultValue="Ayitrix" />
@@ -215,25 +285,53 @@ export default function SettingsPage() {
               </div>
               <div className="form-group">
                 <label className="form-label">Work Day Starts</label>
-                <input type="time" className="form-input" defaultValue="09:00" />
+                <input
+                  type="time"
+                  className="form-input"
+                  defaultValue="09:00"
+                />
               </div>
               <div className="form-group">
-                <label className="form-label">Late Check-in Grace (minutes)</label>
-                <input type="number" min="0" className="form-input" defaultValue={15} />
+                <label className="form-label">
+                  Late Check-in Grace (minutes)
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  className="form-input"
+                  defaultValue={15}
+                />
               </div>
               <div className="form-group">
                 <label className="form-label">Annual Leave Days</label>
-                <input type="number" min="0" className="form-input" defaultValue={20} />
+                <input
+                  type="number"
+                  min="0"
+                  className="form-input"
+                  defaultValue={20}
+                />
               </div>
               <div className="form-group">
                 <label className="form-label">Sick Leave Days</label>
-                <input type="number" min="0" className="form-input" defaultValue={10} />
+                <input
+                  type="number"
+                  min="0"
+                  className="form-input"
+                  defaultValue={10}
+                />
               </div>
             </div>
           )}
 
           {current.key === 'security' && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', maxWidth: '420px' }}>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1rem',
+                maxWidth: '420px',
+              }}
+            >
               <div className="form-group">
                 <label className="form-label">Current Password</label>
                 <input type="password" className="form-input" />

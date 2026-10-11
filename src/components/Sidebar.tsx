@@ -21,15 +21,27 @@ import {
 
 export default function Sidebar() {
   const pathname = usePathname();
-  const { employees, projects, tasks, attendance, leaveRequests, currentRole, unreadNotificationsCount } = useApp();
+  const {
+    employees,
+    projects,
+    tasks,
+    attendance,
+    leaveRequests,
+    currentRole,
+    unreadNotificationsCount,
+  } = useApp();
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const todayStr = new Date().toISOString().slice(0, 10);
   const todayPresentCount = attendance.filter(
-    (a) => a.date === todayStr && a.status !== 'leave' && a.status !== 'absent'
+    (a) => a.date === todayStr && a.status !== 'leave' && a.status !== 'absent',
   ).length;
-  const pendingLeavesCount = leaveRequests.filter((r) => r.status === 'pending').length;
-  const activeProjectsCount = projects.filter((p) => p.status !== 'completed').length;
+  const pendingLeavesCount = leaveRequests.filter(
+    (r) => r.status === 'pending',
+  ).length;
+  const activeProjectsCount = projects.filter(
+    (p) => p.status !== 'completed',
+  ).length;
   const pendingTasksCount = tasks.filter((t) => t.status !== 'done').length;
 
   const navItems = [
@@ -85,7 +97,8 @@ export default function Sidebar() {
       name: 'Notifications',
       href: '/notifications',
       icon: Bell,
-      badge: unreadNotificationsCount > 0 ? unreadNotificationsCount : undefined,
+      badge:
+        unreadNotificationsCount > 0 ? unreadNotificationsCount : undefined,
       badgeColor: 'badge-danger',
       roles: ['admin', 'project_manager', 'employee'],
     },
@@ -96,7 +109,6 @@ export default function Sidebar() {
       roles: ['admin', 'project_manager', 'employee'],
     },
   ];
-
 
   return (
     <aside
@@ -237,7 +249,9 @@ export default function Sidebar() {
 
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href || (item.href === '/team' && pathname === '/employees');
+          const isActive =
+            pathname === item.href ||
+            (item.href === '/team' && pathname === '/employees');
 
           return (
             <Link
@@ -253,18 +267,23 @@ export default function Sidebar() {
                 borderRadius: 'var(--radius-md)',
                 color: isActive ? '#0284c7' : 'var(--text-secondary)',
                 backgroundColor: isActive ? '#f0f9ff' : 'transparent',
-                border: isActive ? '1px solid #bae6fd' : '1px solid transparent',
+                border: isActive
+                  ? '1px solid #bae6fd'
+                  : '1px solid transparent',
                 textDecoration: 'none',
                 fontSize: '0.875rem',
                 fontWeight: isActive ? 700 : 500,
                 transition: 'all var(--transition-fast)',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: isCollapsed ? 0 : '0.75rem' }}>
-                <Icon
-                  size={18}
-                  color={isActive ? '#0284c7' : '#64748b'}
-                />
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: isCollapsed ? 0 : '0.75rem',
+                }}
+              >
+                <Icon size={18} color={isActive ? '#0284c7' : '#64748b'} />
                 {!isCollapsed && <span>{item.name}</span>}
               </div>
               {!isCollapsed && item.badge !== undefined && (
@@ -303,22 +322,47 @@ export default function Sidebar() {
               boxShadow: 'var(--shadow-sm)',
             }}
           >
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-              <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 600 }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                marginBottom: '0.25rem',
+              }}
+            >
+              <span
+                style={{
+                  fontSize: '0.7rem',
+                  color: 'var(--text-muted)',
+                  textTransform: 'uppercase',
+                  fontWeight: 600,
+                }}
+              >
                 Perspective
               </span>
               <span
                 style={{
                   fontSize: '0.72rem',
                   fontWeight: 700,
-                  color: currentRole === 'admin' ? '#d97706' : currentRole === 'project_manager' ? '#0284c7' : '#059669',
+                  color:
+                    currentRole === 'admin'
+                      ? '#d97706'
+                      : currentRole === 'project_manager'
+                        ? '#0284c7'
+                        : '#059669',
                   textTransform: 'capitalize',
                 }}
               >
                 {currentRole.replace('_', ' ')}
               </span>
             </div>
-            <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', lineHeight: 1.3 }}>
+            <div
+              style={{
+                fontSize: '0.75rem',
+                color: 'var(--text-secondary)',
+                lineHeight: 1.3,
+              }}
+            >
               {currentRole === 'admin'
                 ? 'Root access to employee onboarding, approvals & system settings.'
                 : currentRole === 'project_manager'

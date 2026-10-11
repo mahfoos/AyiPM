@@ -1,4 +1,13 @@
-import { Employee, Project, Task, AttendanceRecord, LeaveRequest, LeaveBalance, ActivityLogItem, NotificationItem } from '@/types';
+import {
+  Employee,
+  Project,
+  Task,
+  AttendanceRecord,
+  LeaveRequest,
+  LeaveBalance,
+  ActivityLogItem,
+  NotificationItem,
+} from '@/types';
 
 export const initialEmployees: Employee[] = [
   {
@@ -10,7 +19,8 @@ export const initialEmployees: Employee[] = [
     role: 'admin',
     status: 'active',
     joinDate: '2023-01-15',
-    avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+    avatar:
+      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
     phone: '+1 (555) 234-5678',
     location: 'San Francisco, CA',
   },
@@ -23,7 +33,8 @@ export const initialEmployees: Employee[] = [
     role: 'project_manager',
     status: 'active',
     joinDate: '2023-03-01',
-    avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    avatar:
+      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
     phone: '+1 (555) 876-5432',
     location: 'New York, NY',
   },
@@ -36,7 +47,8 @@ export const initialEmployees: Employee[] = [
     role: 'employee',
     status: 'active',
     joinDate: '2023-06-20',
-    avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80',
+    avatar:
+      'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80',
     phone: '+1 (555) 345-6789',
     location: 'Austin, TX',
   },
@@ -49,7 +61,8 @@ export const initialEmployees: Employee[] = [
     role: 'employee',
     status: 'active',
     joinDate: '2023-08-10',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
+    avatar:
+      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
     phone: '+1 (555) 987-6543',
     location: 'Seattle, WA',
   },
@@ -62,7 +75,8 @@ export const initialEmployees: Employee[] = [
     role: 'employee',
     status: 'active',
     joinDate: '2023-11-05',
-    avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&auto=format&fit=crop&q=80',
+    avatar:
+      'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=150&auto=format&fit=crop&q=80',
     phone: '+1 (555) 456-7890',
     location: 'Chicago, IL',
   },
@@ -75,7 +89,8 @@ export const initialEmployees: Employee[] = [
     role: 'admin',
     status: 'active',
     joinDate: '2022-09-01',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
+    avatar:
+      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
     phone: '+1 (555) 654-3210',
     location: 'Denver, CO',
   },
@@ -86,7 +101,8 @@ export const initialProjects: Project[] = [
     id: 'proj-1',
     name: 'AyiPM Core Platform',
     client: 'Internal Product Team',
-    description: '12-week MVP development of employee and project management suite.',
+    description:
+      '12-week MVP development of employee and project management suite.',
     startDate: '2026-09-01',
     endDate: '2026-11-24',
     status: 'in_progress',
@@ -98,7 +114,8 @@ export const initialProjects: Project[] = [
     id: 'proj-2',
     name: 'Fintech Payment Engine',
     client: 'Apex Global Financial',
-    description: 'High-throughput microservices architecture for multi-currency processing.',
+    description:
+      'High-throughput microservices architecture for multi-currency processing.',
     startDate: '2026-08-15',
     endDate: '2026-12-30',
     status: 'in_progress',
@@ -110,7 +127,8 @@ export const initialProjects: Project[] = [
     id: 'proj-3',
     name: 'Enterprise CRM Migration',
     client: 'Vanguard Logistics',
-    description: 'Migrating legacy ERP spreadsheets to modern relational cloud tables.',
+    description:
+      'Migrating legacy ERP spreadsheets to modern relational cloud tables.',
     startDate: '2026-07-01',
     endDate: '2026-10-15',
     status: 'in_review',
@@ -122,7 +140,8 @@ export const initialProjects: Project[] = [
     id: 'proj-4',
     name: 'Design System & Mobile UI',
     client: 'Internal R&D',
-    description: 'Unified cross-platform component tokens, Figma sync, and responsive styles.',
+    description:
+      'Unified cross-platform component tokens, Figma sync, and responsive styles.',
     startDate: '2026-09-10',
     endDate: '2026-11-30',
     status: 'planning',
@@ -138,10 +157,12 @@ export const initialTasks: Task[] = [
     projectId: 'proj-1',
     projectName: 'AyiPM Core Platform',
     title: 'Design 12-table relational schema & versioned migrations',
-    description: 'Define relational schema covering users, roles, attendance, tasks, and activity logs.',
+    description:
+      'Define relational schema covering users, roles, attendance, tasks, and activity logs.',
     assigneeId: 'emp-1',
     assigneeName: 'Sarah Chen',
-    assigneeAvatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+    assigneeAvatar:
+      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
     priority: 'urgent',
     status: 'done',
     dueDate: '2026-09-08',
@@ -149,15 +170,26 @@ export const initialTasks: Task[] = [
       {
         id: 'c-1',
         authorName: 'Marcus Vance',
-        authorAvatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+        authorAvatar:
+          'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
         text: 'Foreign keys and soft-delete conventions reviewed and approved.',
         timestamp: '2026-09-07 16:30',
-      }
+      },
     ],
     history: [
-      { id: 'h-1', action: 'Created task', author: 'Sarah Chen', timestamp: '2026-09-02 09:00' },
-      { id: 'h-2', action: 'Moved to Done', author: 'Sarah Chen', timestamp: '2026-09-08 17:15' }
-    ]
+      {
+        id: 'h-1',
+        action: 'Created task',
+        author: 'Sarah Chen',
+        timestamp: '2026-09-02 09:00',
+      },
+      {
+        id: 'h-2',
+        action: 'Moved to Done',
+        author: 'Sarah Chen',
+        timestamp: '2026-09-08 17:15',
+      },
+    ],
   },
 ];
 
@@ -203,12 +235,60 @@ export const initialLeaveRequests: LeaveRequest[] = [
 ];
 
 export const initialLeaveBalances: Record<string, LeaveBalance> = {
-  'emp-1': { employeeId: 'emp-1', annualTotal: 20, annualUsed: 4, sickTotal: 10, sickUsed: 1, casualTotal: 7, casualUsed: 2 },
-  'emp-2': { employeeId: 'emp-2', annualTotal: 20, annualUsed: 6, sickTotal: 10, sickUsed: 0, casualTotal: 7, casualUsed: 2 },
-  'emp-3': { employeeId: 'emp-3', annualTotal: 20, annualUsed: 3, sickTotal: 10, sickUsed: 2, casualTotal: 7, casualUsed: 1 },
-  'emp-4': { employeeId: 'emp-4', annualTotal: 20, annualUsed: 5, sickTotal: 10, sickUsed: 0, casualTotal: 7, casualUsed: 0 },
-  'emp-5': { employeeId: 'emp-5', annualTotal: 20, annualUsed: 2, sickTotal: 10, sickUsed: 2, casualTotal: 7, casualUsed: 1 },
-  'emp-6': { employeeId: 'emp-6', annualTotal: 20, annualUsed: 8, sickTotal: 10, sickUsed: 1, casualTotal: 7, casualUsed: 3 },
+  'emp-1': {
+    employeeId: 'emp-1',
+    annualTotal: 20,
+    annualUsed: 4,
+    sickTotal: 10,
+    sickUsed: 1,
+    casualTotal: 7,
+    casualUsed: 2,
+  },
+  'emp-2': {
+    employeeId: 'emp-2',
+    annualTotal: 20,
+    annualUsed: 6,
+    sickTotal: 10,
+    sickUsed: 0,
+    casualTotal: 7,
+    casualUsed: 2,
+  },
+  'emp-3': {
+    employeeId: 'emp-3',
+    annualTotal: 20,
+    annualUsed: 3,
+    sickTotal: 10,
+    sickUsed: 2,
+    casualTotal: 7,
+    casualUsed: 1,
+  },
+  'emp-4': {
+    employeeId: 'emp-4',
+    annualTotal: 20,
+    annualUsed: 5,
+    sickTotal: 10,
+    sickUsed: 0,
+    casualTotal: 7,
+    casualUsed: 0,
+  },
+  'emp-5': {
+    employeeId: 'emp-5',
+    annualTotal: 20,
+    annualUsed: 2,
+    sickTotal: 10,
+    sickUsed: 2,
+    casualTotal: 7,
+    casualUsed: 1,
+  },
+  'emp-6': {
+    employeeId: 'emp-6',
+    annualTotal: 20,
+    annualUsed: 8,
+    sickTotal: 10,
+    sickUsed: 1,
+    casualTotal: 7,
+    casualUsed: 3,
+  },
 };
 
 export const initialActivityLog: ActivityLogItem[] = [
@@ -228,7 +308,8 @@ export const initialNotifications: NotificationItem[] = [
   {
     id: 'notif-1',
     title: 'Task Review Requested',
-    message: 'Sarah Chen completed "Design 12-table relational schema & versioned migrations" and requested review.',
+    message:
+      'Sarah Chen completed "Design 12-table relational schema & versioned migrations" and requested review.',
     category: 'task',
     timestamp: new Date(Date.now() - 15 * 60 * 1000).toISOString(), // 15 mins ago
     read: false,
@@ -236,13 +317,15 @@ export const initialNotifications: NotificationItem[] = [
     priority: 'urgent',
     sender: {
       name: 'Sarah Chen',
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
+      avatar:
+        'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80',
     },
   },
   {
     id: 'notif-2',
     title: 'New Leave Application',
-    message: 'Amina Nour applied for 2 days Sick Leave (Sep 21 - Sep 22) awaiting review.',
+    message:
+      'Amina Nour applied for 2 days Sick Leave (Sep 21 - Sep 22) awaiting review.',
     category: 'leave',
     timestamp: new Date(Date.now() - 45 * 60 * 1000).toISOString(), // 45 mins ago
     read: false,
@@ -255,7 +338,8 @@ export const initialNotifications: NotificationItem[] = [
   {
     id: 'notif-3',
     title: 'Late Attendance Recorded',
-    message: 'Sarah Chen checked in at 09:24 AM, outside the standard grace period window.',
+    message:
+      'Sarah Chen checked in at 09:24 AM, outside the standard grace period window.',
     category: 'attendance',
     timestamp: new Date(Date.now() - 3 * 3600 * 1000).toISOString(), // 3 hours ago
     read: false,
@@ -275,7 +359,8 @@ export const initialNotifications: NotificationItem[] = [
   {
     id: 'notif-5',
     title: 'System Preferences Synchronized',
-    message: 'Leave balance defaults and attendance policies were updated in Settings.',
+    message:
+      'Leave balance defaults and attendance policies were updated in Settings.',
     category: 'system',
     timestamp: new Date(Date.now() - 48 * 3600 * 1000).toISOString(), // 2 days ago
     read: true,
@@ -283,4 +368,3 @@ export const initialNotifications: NotificationItem[] = [
     priority: 'low',
   },
 ];
-

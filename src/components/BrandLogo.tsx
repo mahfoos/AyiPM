@@ -14,7 +14,13 @@ export default function BrandLogo({
   const iconHeight = size === 'sm' ? 26 : size === 'md' ? 34 : 44;
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: showWordmark ? '0.75rem' : 0 }}>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: showWordmark ? '0.75rem' : 0,
+      }}
+    >
       {/* Uploaded AX Brand Logo */}
       <div
         style={{
@@ -41,11 +47,29 @@ export default function BrandLogo({
 
       {/* Brand Wordmark & System Tag */}
       {showWordmark && (
-        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', lineHeight: 1 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.35rem',
+              lineHeight: 1,
+            }}
+          >
             <span
               style={{
-                fontSize: size === 'sm' ? '0.95rem' : size === 'md' ? '1.2rem' : '1.45rem',
+                fontSize:
+                  size === 'sm'
+                    ? '0.95rem'
+                    : size === 'md'
+                      ? '1.2rem'
+                      : '1.45rem',
                 fontWeight: 800,
                 letterSpacing: '0.03em',
                 color: '#0f172a',

@@ -17,7 +17,6 @@ import {
 import NotificationDropdown from '@/components/NotificationDropdown';
 import GlobalSearch from '@/components/GlobalSearch';
 
-
 export default function Navbar() {
   const {
     currentRole,
@@ -42,7 +41,7 @@ export default function Navbar() {
           day: 'numeric',
           hour: '2-digit',
           minute: '2-digit',
-        })
+        }),
       );
     };
     updateTime();
@@ -52,12 +51,18 @@ export default function Navbar() {
 
   const todayStr = new Date().toISOString().slice(0, 10);
   const todayRecord = attendance.find(
-    (a) => a.employeeId === currentUser?.id && a.date === todayStr
+    (a) => a.employeeId === currentUser?.id && a.date === todayStr,
   );
   const isCheckedIn = Boolean(todayRecord && todayRecord.checkIn !== '—');
   const isCheckedOut = Boolean(todayRecord && todayRecord.checkOut);
 
-  const roles: { role: UserRole; label: string; desc: string; icon: any; color: string }[] = [
+  const roles: {
+    role: UserRole;
+    label: string;
+    desc: string;
+    icon: any;
+    color: string;
+  }[] = [
     {
       role: 'admin',
       label: 'Admin',
@@ -132,7 +137,11 @@ export default function Navbar() {
           <button
             onClick={() => checkOut()}
             className="btn btn-secondary btn-sm"
-            style={{ color: '#dc2626', borderColor: '#fecaca', background: '#fef2f2' }}
+            style={{
+              color: '#dc2626',
+              borderColor: '#fecaca',
+              background: '#fef2f2',
+            }}
             title="Log attendance check-out"
           >
             <LogOut size={15} />
@@ -149,7 +158,15 @@ export default function Navbar() {
       </div>
 
       {/* Center: Global Search with Theme Bended Edges */}
-      <div style={{ flex: 1, display: 'flex', justifyContent: 'center', padding: '0 1.5rem', maxWidth: '440px' }}>
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'center',
+          padding: '0 1.5rem',
+          maxWidth: '440px',
+        }}
+      >
         <GlobalSearch />
       </div>
 
@@ -195,10 +212,24 @@ export default function Navbar() {
             }}
           >
             <div style={{ textAlign: 'left', lineHeight: 1.2 }}>
-              <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em', fontWeight: 600 }}>
+              <div
+                style={{
+                  fontSize: '0.68rem',
+                  color: 'var(--text-muted)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  fontWeight: 600,
+                }}
+              >
                 Active Persona
               </div>
-              <div style={{ fontSize: '0.875rem', fontWeight: 700, textTransform: 'capitalize' }}>
+              <div
+                style={{
+                  fontSize: '0.875rem',
+                  fontWeight: 700,
+                  textTransform: 'capitalize',
+                }}
+              >
                 {currentRole.replace('_', ' ')}
               </div>
             </div>
@@ -255,7 +286,9 @@ export default function Navbar() {
                         padding: '0.625rem 0.75rem',
                         borderRadius: 'var(--radius-md)',
                         background: isActive ? '#f0f9ff' : 'transparent',
-                        border: isActive ? '1px solid #bae6fd' : '1px solid transparent',
+                        border: isActive
+                          ? '1px solid #bae6fd'
+                          : '1px solid transparent',
                         color: 'var(--text-primary)',
                         textAlign: 'left',
                         cursor: 'pointer',
@@ -274,10 +307,22 @@ export default function Navbar() {
                         <Icon size={16} />
                       </div>
                       <div>
-                        <div style={{ fontSize: '0.85rem', fontWeight: 700, color: isActive ? '#0284c7' : 'inherit' }}>
+                        <div
+                          style={{
+                            fontSize: '0.85rem',
+                            fontWeight: 700,
+                            color: isActive ? '#0284c7' : 'inherit',
+                          }}
+                        >
                           {r.label}
                         </div>
-                        <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
+                        <div
+                          style={{
+                            fontSize: '0.75rem',
+                            color: 'var(--text-secondary)',
+                            marginTop: '2px',
+                          }}
+                        >
                           {r.desc}
                         </div>
                       </div>
@@ -303,7 +348,10 @@ export default function Navbar() {
           }}
         >
           <img
-            src={currentUser?.avatar || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80'}
+            src={
+              currentUser?.avatar ||
+              'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80'
+            }
             alt={currentUser?.name || 'User avatar'}
             className="avatar"
             style={{ width: '38px', height: '38px' }}

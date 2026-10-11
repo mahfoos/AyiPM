@@ -94,16 +94,23 @@ export default function LeavePage() {
         }}
       >
         <div>
-          <h1 className="heading-xl" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+          <h1
+            className="heading-xl"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}
+          >
             <PlaneTakeoff size={28} color="var(--primary)" />
             <span>Leave Management</span>
           </h1>
           <p className="subtext" style={{ marginTop: '0.25rem' }}>
-            Annual leave balance allocations, team calendar visibility, and manager review workflow.
+            Annual leave balance allocations, team calendar visibility, and
+            manager review workflow.
           </p>
         </div>
 
-        <button onClick={() => setIsApplyModalOpen(true)} className="btn btn-primary">
+        <button
+          onClick={() => setIsApplyModalOpen(true)}
+          className="btn btn-primary"
+        >
           <Plus size={16} />
           <span>Apply for Leave</span>
         </button>
@@ -118,14 +125,27 @@ export default function LeavePage() {
         }}
       >
         <div className="glass-card stat-card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <span className="heading-sm">Annual Vacation</span>
             <PlaneTakeoff size={18} color="var(--primary)" />
           </div>
           <div style={{ fontSize: '1.875rem', fontWeight: 800 }}>
             {myBalance.annualTotal - myBalance.annualUsed}
-            <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>
-              {' '}/ {myBalance.annualTotal} days left
+            <span
+              style={{
+                fontSize: '0.9rem',
+                color: 'var(--text-muted)',
+                fontWeight: 500,
+              }}
+            >
+              {' '}
+              / {myBalance.annualTotal} days left
             </span>
           </div>
           <div className="progress-container" style={{ marginTop: '0.5rem' }}>
@@ -137,18 +157,33 @@ export default function LeavePage() {
               }}
             />
           </div>
-          <div className="subtext">{myBalance.annualUsed} days used this year</div>
+          <div className="subtext">
+            {myBalance.annualUsed} days used this year
+          </div>
         </div>
 
         <div className="glass-card stat-card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <span className="heading-sm">Sick Leave</span>
             <HeartPulse size={18} color="#ef4444" />
           </div>
           <div style={{ fontSize: '1.875rem', fontWeight: 800 }}>
             {myBalance.sickTotal - myBalance.sickUsed}
-            <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>
-              {' '}/ {myBalance.sickTotal} days left
+            <span
+              style={{
+                fontSize: '0.9rem',
+                color: 'var(--text-muted)',
+                fontWeight: 500,
+              }}
+            >
+              {' '}
+              / {myBalance.sickTotal} days left
             </span>
           </div>
           <div className="progress-container" style={{ marginTop: '0.5rem' }}>
@@ -160,18 +195,33 @@ export default function LeavePage() {
               }}
             />
           </div>
-          <div className="subtext">{myBalance.sickUsed} days used this year</div>
+          <div className="subtext">
+            {myBalance.sickUsed} days used this year
+          </div>
         </div>
 
         <div className="glass-card stat-card">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <span className="heading-sm">Casual / Personal</span>
             <Coffee size={18} color="#f59e0b" />
           </div>
           <div style={{ fontSize: '1.875rem', fontWeight: 800 }}>
             {myBalance.casualTotal - myBalance.casualUsed}
-            <span style={{ fontSize: '0.9rem', color: 'var(--text-muted)', fontWeight: 500 }}>
-              {' '}/ {myBalance.casualTotal} days left
+            <span
+              style={{
+                fontSize: '0.9rem',
+                color: 'var(--text-muted)',
+                fontWeight: 500,
+              }}
+            >
+              {' '}
+              / {myBalance.casualTotal} days left
             </span>
           </div>
           <div className="progress-container" style={{ marginTop: '0.5rem' }}>
@@ -183,12 +233,22 @@ export default function LeavePage() {
               }}
             />
           </div>
-          <div className="subtext">{myBalance.casualUsed} days used this year</div>
+          <div className="subtext">
+            {myBalance.casualUsed} days used this year
+          </div>
         </div>
       </div>
 
       {/* Leave Requests Table */}
-      <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1.25rem' }}>
+      <div
+        className="glass-card"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          padding: '1.25rem',
+        }}
+      >
         <div
           style={{
             display: 'flex',
@@ -199,7 +259,9 @@ export default function LeavePage() {
           }}
         >
           <h2 className="heading-md">
-            {currentRole === 'employee' ? 'My Leave Applications' : 'Team Leave Requests Queue'}
+            {currentRole === 'employee'
+              ? 'My Leave Applications'
+              : 'Team Leave Requests Queue'}
           </h2>
 
           <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -226,7 +288,8 @@ export default function LeavePage() {
                 <th>Duration</th>
                 <th>Reason</th>
                 <th>Status</th>
-                {(currentRole === 'admin' || currentRole === 'project_manager') && (
+                {(currentRole === 'admin' ||
+                  currentRole === 'project_manager') && (
                   <th style={{ textAlign: 'right' }}>Actions</th>
                 )}
               </tr>
@@ -236,7 +299,11 @@ export default function LeavePage() {
                 <tr>
                   <td
                     colSpan={7}
-                    style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}
+                    style={{
+                      textAlign: 'center',
+                      padding: '3rem',
+                      color: 'var(--text-muted)',
+                    }}
                   >
                     No leave requests found for this status.
                   </td>
@@ -246,23 +313,44 @@ export default function LeavePage() {
                   <tr key={req.id}>
                     <td>
                       <div style={{ fontWeight: 600 }}>{req.employeeName}</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                      <div
+                        style={{
+                          fontSize: '0.75rem',
+                          color: 'var(--text-muted)',
+                        }}
+                      >
                         Applied: {req.appliedOn}
                       </div>
                     </td>
                     <td>
-                      <span className="badge badge-purple">{req.leaveType}</span>
+                      <span className="badge badge-purple">
+                        {req.leaveType}
+                      </span>
                     </td>
                     <td style={{ fontSize: '0.85rem' }}>
                       {req.startDate} to {req.endDate}
                     </td>
                     <td>
-                      <span style={{ fontWeight: 600 }}>{req.days} {req.days === 1 ? 'day' : 'days'}</span>
+                      <span style={{ fontWeight: 600 }}>
+                        {req.days} {req.days === 1 ? 'day' : 'days'}
+                      </span>
                     </td>
-                    <td style={{ maxWidth: '240px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                    <td
+                      style={{
+                        maxWidth: '240px',
+                        fontSize: '0.85rem',
+                        color: 'var(--text-secondary)',
+                      }}
+                    >
                       <div>{req.reason}</div>
                       {req.rejectionReason && (
-                        <div style={{ color: 'var(--danger)', fontSize: '0.75rem', marginTop: '4px' }}>
+                        <div
+                          style={{
+                            color: 'var(--danger)',
+                            fontSize: '0.75rem',
+                            marginTop: '4px',
+                          }}
+                        >
                           Reason: {req.rejectionReason}
                         </div>
                       )}
@@ -270,12 +358,17 @@ export default function LeavePage() {
                     <td>
                       <StatusBadge type="leave" status={req.status} />
                     </td>
-                    {(currentRole === 'admin' || currentRole === 'project_manager') && (
+                    {(currentRole === 'admin' ||
+                      currentRole === 'project_manager') && (
                       <td style={{ textAlign: 'right' }}>
                         {req.status === 'pending' ? (
-                          <div style={{ display: 'inline-flex', gap: '0.5rem' }}>
+                          <div
+                            style={{ display: 'inline-flex', gap: '0.5rem' }}
+                          >
                             <button
-                              onClick={() => reviewLeaveRequest(req.id, 'approved')}
+                              onClick={() =>
+                                reviewLeaveRequest(req.id, 'approved')
+                              }
                               className="btn btn-sm btn-success"
                               title="Approve Leave"
                             >
@@ -284,7 +377,9 @@ export default function LeavePage() {
                             </button>
                             <button
                               onClick={() => {
-                                const r = prompt('Rejection reason:') || 'Workload constraints';
+                                const r =
+                                  prompt('Rejection reason:') ||
+                                  'Workload constraints';
                                 reviewLeaveRequest(req.id, 'rejected', r);
                               }}
                               className="btn btn-sm btn-danger"
@@ -295,7 +390,12 @@ export default function LeavePage() {
                             </button>
                           </div>
                         ) : (
-                          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+                          <span
+                            style={{
+                              fontSize: '0.75rem',
+                              color: 'var(--text-muted)',
+                            }}
+                          >
                             {req.approvedBy || 'Processed'}
                           </span>
                         )}
@@ -315,13 +415,18 @@ export default function LeavePage() {
         onClose={() => setIsApplyModalOpen(false)}
         title="Apply for Leave"
       >
-        <form onSubmit={handleApply} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <form
+          onSubmit={handleApply}
+          style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
+        >
           <div className="form-group">
             <label className="form-label">Leave Type</label>
             <select
               className="form-select"
               value={form.leaveType}
-              onChange={(e) => setForm({ ...form, leaveType: e.target.value as LeaveType })}
+              onChange={(e) =>
+                setForm({ ...form, leaveType: e.target.value as LeaveType })
+              }
             >
               <option value="Annual">Annual Vacation</option>
               <option value="Sick">Sick Leave</option>
@@ -329,7 +434,13 @@ export default function LeavePage() {
             </select>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '1rem',
+            }}
+          >
             <div className="form-group">
               <label className="form-label">Start Date *</label>
               <input
@@ -337,7 +448,9 @@ export default function LeavePage() {
                 required
                 className="form-input"
                 value={form.startDate}
-                onChange={(e) => setForm({ ...form, startDate: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, startDate: e.target.value })
+                }
               />
             </div>
 
@@ -362,7 +475,9 @@ export default function LeavePage() {
               required
               className="form-input"
               value={form.days}
-              onChange={(e) => setForm({ ...form, days: Number(e.target.value) })}
+              onChange={(e) =>
+                setForm({ ...form, days: Number(e.target.value) })
+              }
             />
           </div>
 
@@ -378,8 +493,19 @@ export default function LeavePage() {
             />
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem', marginTop: '1rem' }}>
-            <button type="button" onClick={() => setIsApplyModalOpen(false)} className="btn btn-secondary">
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: '0.75rem',
+              marginTop: '1rem',
+            }}
+          >
+            <button
+              type="button"
+              onClick={() => setIsApplyModalOpen(false)}
+              className="btn btn-secondary"
+            >
               Cancel
             </button>
             <button type="submit" className="btn btn-primary">

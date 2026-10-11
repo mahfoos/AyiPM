@@ -16,7 +16,6 @@ import {
   X,
 } from 'lucide-react';
 
-
 export default function ActivityPage() {
   const { activityLog } = useApp();
 
@@ -54,12 +53,16 @@ export default function ActivityPage() {
     <div className="page-container">
       {/* Header */}
       <div>
-        <h1 className="heading-xl" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+        <h1
+          className="heading-xl"
+          style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}
+        >
           <Activity size={28} color="var(--primary)" />
           <span>System Activity & Audit Trail</span>
         </h1>
         <p className="subtext" style={{ marginTop: '0.25rem' }}>
-          Immutable ledger of every state change: onboarding, task transitions, attendance check-ins, and leave decisions.
+          Immutable ledger of every state change: onboarding, task transitions,
+          attendance check-ins, and leave decisions.
         </p>
       </div>
 
@@ -97,25 +100,40 @@ export default function ActivityPage() {
           </div>
         </div>
 
-
         <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-          {['all', 'attendance', 'leave', 'task', 'project', 'employee'].map((t) => (
-            <button
-              key={t}
-              onClick={() => setFilterType(t)}
-              className={`btn btn-sm ${filterType === t ? 'btn-primary' : 'btn-secondary'}`}
-              style={{ textTransform: 'capitalize' }}
-            >
-              {t}
-            </button>
-          ))}
+          {['all', 'attendance', 'leave', 'task', 'project', 'employee'].map(
+            (t) => (
+              <button
+                key={t}
+                onClick={() => setFilterType(t)}
+                className={`btn btn-sm ${filterType === t ? 'btn-primary' : 'btn-secondary'}`}
+                style={{ textTransform: 'capitalize' }}
+              >
+                {t}
+              </button>
+            ),
+          )}
         </div>
       </div>
 
       {/* Feed List */}
-      <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', padding: '1.5rem' }}>
+      <div
+        className="glass-card"
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          padding: '1.5rem',
+        }}
+      >
         {filteredLogs.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+          <div
+            style={{
+              textAlign: 'center',
+              padding: '3rem',
+              color: 'var(--text-muted)',
+            }}
+          >
             No activity log records found matching your filter criteria.
           </div>
         ) : (
@@ -148,25 +166,65 @@ export default function ActivityPage() {
               </div>
 
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{log.actorName}</span>
+                <div
+                  style={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    flexWrap: 'wrap',
+                    gap: '0.5rem',
+                  }}
+                >
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                    }}
+                  >
+                    <span
+                      style={{ fontWeight: 600, color: 'var(--text-primary)' }}
+                    >
+                      {log.actorName}
+                    </span>
                     <span
                       className="badge badge-neutral"
-                      style={{ fontSize: '0.7rem', padding: '0.1rem 0.4rem', textTransform: 'capitalize' }}
+                      style={{
+                        fontSize: '0.7rem',
+                        padding: '0.1rem 0.4rem',
+                        textTransform: 'capitalize',
+                      }}
                     >
                       {log.actorRole.replace('_', ' ')}
                     </span>
                   </div>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                  <span
+                    style={{
+                      fontSize: '0.75rem',
+                      color: 'var(--text-muted)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.25rem',
+                    }}
+                  >
                     <Clock size={12} />
                     {log.timestamp}
                   </span>
                 </div>
 
-                <div style={{ fontSize: '0.875rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
-                  <span style={{ color: '#38bdf8', fontWeight: 600 }}>{log.action}:</span>{' '}
-                  <strong style={{ color: 'var(--text-primary)' }}>{log.entityName}</strong>
+                <div
+                  style={{
+                    fontSize: '0.875rem',
+                    color: 'var(--text-secondary)',
+                    marginTop: '0.25rem',
+                  }}
+                >
+                  <span style={{ color: '#38bdf8', fontWeight: 600 }}>
+                    {log.action}:
+                  </span>{' '}
+                  <strong style={{ color: 'var(--text-primary)' }}>
+                    {log.entityName}
+                  </strong>
                 </div>
 
                 {log.details && (

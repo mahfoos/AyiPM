@@ -17,7 +17,8 @@ import {
 } from 'lucide-react';
 
 export default function AttendancePage() {
-  const { attendance, employees, currentUser, currentRole, checkIn, checkOut } = useApp();
+  const { attendance, employees, currentUser, currentRole, checkIn, checkOut } =
+    useApp();
 
   const [dateFilter, setDateFilter] = useState('');
   const [employeeFilter, setEmployeeFilter] = useState('all');
@@ -27,7 +28,7 @@ export default function AttendancePage() {
 
   const todayStr = new Date().toISOString().slice(0, 10);
   const myRecordToday = attendance.find(
-    (a) => a.employeeId === currentUser.id && a.date === todayStr
+    (a) => a.employeeId === currentUser.id && a.date === todayStr,
   );
 
   const isCheckedIn = Boolean(myRecordToday && myRecordToday.checkIn !== '—');
@@ -35,7 +36,8 @@ export default function AttendancePage() {
 
   const filteredAttendance = attendance.filter((rec) => {
     const matchesDate = !dateFilter || rec.date === dateFilter;
-    const matchesEmp = employeeFilter === 'all' || rec.employeeId === employeeFilter;
+    const matchesEmp =
+      employeeFilter === 'all' || rec.employeeId === employeeFilter;
     const matchesStatus = statusFilter === 'all' || rec.status === statusFilter;
     return matchesDate && matchesEmp && matchesStatus;
   });
@@ -45,7 +47,7 @@ export default function AttendancePage() {
     const rows = filteredAttendance
       .map(
         (r) =>
-          `"${r.id}","${r.employeeName}","${r.date}","${r.checkIn}","${r.checkOut || 'N/A'}",${r.workingHours || 0},"${r.status}","${r.notes || ''}"`
+          `"${r.id}","${r.employeeName}","${r.date}","${r.checkIn}","${r.checkOut || 'N/A'}",${r.workingHours || 0},"${r.status}","${r.notes || ''}"`,
       )
       .join('\n');
     const blob = new Blob([headers + rows], { type: 'text/csv' });
@@ -71,12 +73,16 @@ export default function AttendancePage() {
         }}
       >
         <div>
-          <h1 className="heading-xl" style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+          <h1
+            className="heading-xl"
+            style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}
+          >
             <CalendarCheck size={28} color="var(--primary)" />
             <span>Attendance & Working Hours</span>
           </h1>
           <p className="subtext" style={{ marginTop: '0.25rem' }}>
-            Daily check-in logs, automatic punctuality derivation (grace period: 09:15), and monthly audit summaries.
+            Daily check-in logs, automatic punctuality derivation (grace period:
+            09:15), and monthly audit summaries.
           </p>
         </div>
 
@@ -119,20 +125,35 @@ export default function AttendancePage() {
         }}
       >
         <div>
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          <span
+            style={{
+              fontSize: '0.75rem',
+              color: 'var(--text-muted)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+            }}
+          >
             Personal Attendance Station
           </span>
           <h2 className="heading-lg" style={{ marginTop: '0.25rem' }}>
             {currentUser.name}
           </h2>
-          <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
+          <div
+            style={{
+              fontSize: '0.85rem',
+              color: 'var(--text-secondary)',
+              marginTop: '0.25rem',
+            }}
+          >
             Standard Shift: 09:00 AM – 05:30 PM (Grace window: 15 mins)
           </div>
         </div>
 
         <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Status Today</span>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              Status Today
+            </span>
             <div style={{ marginTop: '0.25rem' }}>
               {myRecordToday ? (
                 <StatusBadge type="attendance" status={myRecordToday.status} />
@@ -143,23 +164,49 @@ export default function AttendancePage() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Time In</span>
-            <span style={{ fontSize: '1rem', fontWeight: 600, marginTop: '0.25rem' }}>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              Time In
+            </span>
+            <span
+              style={{
+                fontSize: '1rem',
+                fontWeight: 600,
+                marginTop: '0.25rem',
+              }}
+            >
               {myRecordToday?.checkIn || '—'}
             </span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>Time Out</span>
-            <span style={{ fontSize: '1rem', fontWeight: 600, marginTop: '0.25rem' }}>
+            <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>
+              Time Out
+            </span>
+            <span
+              style={{
+                fontSize: '1rem',
+                fontWeight: 600,
+                marginTop: '0.25rem',
+              }}
+            >
               {myRecordToday?.checkOut || '—'}
             </span>
           </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.75rem' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            gap: '0.75rem',
+          }}
+        >
           {!isCheckedIn ? (
-            <button onClick={() => checkIn()} className="btn btn-primary" style={{ padding: '0.75rem 1.5rem' }}>
+            <button
+              onClick={() => checkIn()}
+              className="btn btn-primary"
+              style={{ padding: '0.75rem 1.5rem' }}
+            >
               <CheckCircle2 size={18} />
               <span>Check In Now</span>
             </button>
@@ -174,10 +221,18 @@ export default function AttendancePage() {
             </button>
           ) : (
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontSize: '0.875rem', color: 'var(--success)', fontWeight: 600 }}>
+              <div
+                style={{
+                  fontSize: '0.875rem',
+                  color: 'var(--success)',
+                  fontWeight: 600,
+                }}
+              >
                 Shift Completed
               </div>
-              <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+              <div
+                style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}
+              >
                 Total: {myRecordToday?.workingHours} hrs logged
               </div>
             </div>
@@ -214,7 +269,14 @@ export default function AttendancePage() {
         </div>
 
         {/* Filter Controls */}
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center', flexWrap: 'wrap' }}>
+        <div
+          style={{
+            display: 'flex',
+            gap: '0.75rem',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+          }}
+        >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <Calendar size={15} color="var(--text-muted)" />
             <input
@@ -254,7 +316,9 @@ export default function AttendancePage() {
             <option value="absent">Absent</option>
           </select>
 
-          {(dateFilter || employeeFilter !== 'all' || statusFilter !== 'all') && (
+          {(dateFilter ||
+            employeeFilter !== 'all' ||
+            statusFilter !== 'all') && (
             <button
               onClick={() => {
                 setDateFilter('');
@@ -287,19 +351,42 @@ export default function AttendancePage() {
             <tbody>
               {filteredAttendance.length === 0 ? (
                 <tr>
-                  <td colSpan={7} style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-muted)' }}>
+                  <td
+                    colSpan={7}
+                    style={{
+                      textAlign: 'center',
+                      padding: '3rem',
+                      color: 'var(--text-muted)',
+                    }}
+                  >
                     No attendance records match the selected filter criteria.
                   </td>
                 </tr>
               ) : (
                 filteredAttendance.map((rec) => (
                   <tr key={rec.id}>
-                    <td style={{ fontSize: '0.85rem', fontWeight: 500 }}>{rec.date}</td>
+                    <td style={{ fontSize: '0.85rem', fontWeight: 500 }}>
+                      {rec.date}
+                    </td>
                     <td>
                       <div style={{ fontWeight: 600 }}>{rec.employeeName}</div>
                     </td>
-                    <td style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>{rec.checkIn}</td>
-                    <td style={{ fontFamily: 'var(--font-mono)', fontSize: '0.85rem' }}>{rec.checkOut || '—'}</td>
+                    <td
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.85rem',
+                      }}
+                    >
+                      {rec.checkIn}
+                    </td>
+                    <td
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: '0.85rem',
+                      }}
+                    >
+                      {rec.checkOut || '—'}
+                    </td>
                     <td>
                       <span style={{ fontWeight: 600 }}>
                         {rec.workingHours ? `${rec.workingHours} hrs` : '—'}
@@ -308,7 +395,12 @@ export default function AttendancePage() {
                     <td>
                       <StatusBadge type="attendance" status={rec.status} />
                     </td>
-                    <td style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                    <td
+                      style={{
+                        fontSize: '0.8rem',
+                        color: 'var(--text-secondary)',
+                      }}
+                    >
                       {rec.notes || 'Normal attendance'}
                     </td>
                   </tr>
@@ -319,15 +411,35 @@ export default function AttendancePage() {
         </div>
       ) : (
         /* Monthly Grid Summary */
-        <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <h2 className="heading-md">September 2026 Monthly Attendance Ledger</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+        <div
+          className="glass-card"
+          style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
+        >
+          <h2 className="heading-md">
+            September 2026 Monthly Attendance Ledger
+          </h2>
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '1rem',
+            }}
+          >
             {employees.map((emp) => {
-              const empRecords = attendance.filter((a) => a.employeeId === emp.id);
-              const present = empRecords.filter((a) => a.status === 'present').length;
+              const empRecords = attendance.filter(
+                (a) => a.employeeId === emp.id,
+              );
+              const present = empRecords.filter(
+                (a) => a.status === 'present',
+              ).length;
               const late = empRecords.filter((a) => a.status === 'late').length;
-              const onLeave = empRecords.filter((a) => a.status === 'leave').length;
-              const totalHours = empRecords.reduce((acc, curr) => acc + (curr.workingHours || 0), 0);
+              const onLeave = empRecords.filter(
+                (a) => a.status === 'leave',
+              ).length;
+              const totalHours = empRecords.reduce(
+                (acc, curr) => acc + (curr.workingHours || 0),
+                0,
+              );
 
               return (
                 <div
@@ -342,32 +454,133 @@ export default function AttendancePage() {
                     gap: '0.75rem',
                   }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                    <img src={emp.avatar} alt={emp.name} className="avatar" style={{ width: '36px', height: '36px' }} />
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                    }}
+                  >
+                    <img
+                      src={emp.avatar}
+                      alt={emp.name}
+                      className="avatar"
+                      style={{ width: '36px', height: '36px' }}
+                    />
                     <div>
-                      <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>{emp.name}</div>
-                      <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>{emp.designation}</div>
+                      <div style={{ fontWeight: 600, fontSize: '0.9rem' }}>
+                        {emp.name}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: '0.75rem',
+                          color: 'var(--text-secondary)',
+                        }}
+                      >
+                        {emp.designation}
+                      </div>
                     </div>
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '0.5rem', textAlign: 'center' }}>
-                    <div style={{ background: '#f1f5f9', padding: '0.5rem', borderRadius: 'var(--radius-sm)' }}>
-                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Present</div>
-                      <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#059669' }}>{present}</div>
+                  <div
+                    style={{
+                      display: 'grid',
+                      gridTemplateColumns: '1fr 1fr 1fr',
+                      gap: '0.5rem',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <div
+                      style={{
+                        background: '#f1f5f9',
+                        padding: '0.5rem',
+                        borderRadius: 'var(--radius-sm)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: '0.7rem',
+                          color: 'var(--text-muted)',
+                        }}
+                      >
+                        Present
+                      </div>
+                      <div
+                        style={{
+                          fontSize: '1.1rem',
+                          fontWeight: 700,
+                          color: '#059669',
+                        }}
+                      >
+                        {present}
+                      </div>
                     </div>
-                    <div style={{ background: '#f1f5f9', padding: '0.5rem', borderRadius: 'var(--radius-sm)' }}>
-                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Late</div>
-                      <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#d97706' }}>{late}</div>
+                    <div
+                      style={{
+                        background: '#f1f5f9',
+                        padding: '0.5rem',
+                        borderRadius: 'var(--radius-sm)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: '0.7rem',
+                          color: 'var(--text-muted)',
+                        }}
+                      >
+                        Late
+                      </div>
+                      <div
+                        style={{
+                          fontSize: '1.1rem',
+                          fontWeight: 700,
+                          color: '#d97706',
+                        }}
+                      >
+                        {late}
+                      </div>
                     </div>
-                    <div style={{ background: '#f1f5f9', padding: '0.5rem', borderRadius: 'var(--radius-sm)' }}>
-                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>Leave</div>
-                      <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#0284c7' }}>{onLeave}</div>
+                    <div
+                      style={{
+                        background: '#f1f5f9',
+                        padding: '0.5rem',
+                        borderRadius: 'var(--radius-sm)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: '0.7rem',
+                          color: 'var(--text-muted)',
+                        }}
+                      >
+                        Leave
+                      </div>
+                      <div
+                        style={{
+                          fontSize: '1.1rem',
+                          fontWeight: 700,
+                          color: '#0284c7',
+                        }}
+                      >
+                        {onLeave}
+                      </div>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      fontSize: '0.8rem',
+                      color: 'var(--text-secondary)',
+                    }}
+                  >
                     <span>Total Hours Logged:</span>
-                    <span style={{ fontWeight: 600, color: 'var(--text-primary)' }}>{totalHours.toFixed(1)} hrs</span>
+                    <span
+                      style={{ fontWeight: 600, color: 'var(--text-primary)' }}
+                    >
+                      {totalHours.toFixed(1)} hrs
+                    </span>
                   </div>
                 </div>
               );

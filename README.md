@@ -27,14 +27,14 @@
 
 In alignment with **Week 1: Technology Selection** of the project roadmap, the stack was chosen based on team familiarity, ecosystem maturity, and zero-compromise deliverability:
 
-| Layer | Technology | Decision Rationale |
-| :--- | :--- | :--- |
-| **Frontend Framework** | **Next.js 14+ (App Router)** | Server and client component ergonomics, declarative routing, and production-ready hydration performance. |
-| **Language** | **TypeScript (Strict Mode)** | End-to-end type safety across domain interfaces, reducing runtime edge-case bugs in calculation logic. |
-| **Styling & Design System** | **Modular Vanilla CSS** | Custom CSS design tokens, glassmorphism surfaces (`backdrop-filter`), slate/indigo corporate palette, zero CSS library lock-in. |
-| **Iconography** | **Lucide Icons** | Consistent visual language across workflows, navigation, and status badges. |
-| **State & Persistence** | **React Context + Web Storage** | Zero-latency optimistic UI updates with automatic browser persistence and realistic mock seed datasets. |
-| **Target Database Schema** | **PostgreSQL (12 relational tables)** | Relational integrity with foreign keys, soft deletes (`deleted_at`), and immutable audit logging. |
+| Layer                       | Technology                            | Decision Rationale                                                                                                              |
+| :-------------------------- | :------------------------------------ | :------------------------------------------------------------------------------------------------------------------------------ |
+| **Frontend Framework**      | **Next.js 14+ (App Router)**          | Server and client component ergonomics, declarative routing, and production-ready hydration performance.                        |
+| **Language**                | **TypeScript (Strict Mode)**          | End-to-end type safety across domain interfaces, reducing runtime edge-case bugs in calculation logic.                          |
+| **Styling & Design System** | **Modular Vanilla CSS**               | Custom CSS design tokens, glassmorphism surfaces (`backdrop-filter`), slate/indigo corporate palette, zero CSS library lock-in. |
+| **Iconography**             | **Lucide Icons**                      | Consistent visual language across workflows, navigation, and status badges.                                                     |
+| **State & Persistence**     | **React Context + Web Storage**       | Zero-latency optimistic UI updates with automatic browser persistence and realistic mock seed datasets.                         |
+| **Target Database Schema**  | **PostgreSQL (12 relational tables)** | Relational integrity with foreign keys, soft deletes (`deleted_at`), and immutable audit logging.                               |
 
 ---
 
@@ -42,12 +42,12 @@ In alignment with **Week 1: Technology Selection** of the project roadmap, the s
 
 The project was mapped for a 4-engineer team structure where every member owns dedicated functional slices:
 
-| Engineer | Role | Primary Responsibilities | Module Ownership |
-| :--- | :--- | :--- | :--- |
-| **Dev 1** | Tech Lead / Full-Stack | Architecture, relational schema, CI pipeline, code review, release management | Auth & Roles, Database Schema, Staging Deployment |
-| **Dev 2** | Backend Engineer | API design, business logic (attendance derivation, leave balances), background jobs | Attendance API, Leave API, Reports Engine |
-| **Dev 3** | Frontend Engineer | Navigation shell, design system tokens, forms & validation, tables & filters | UI Foundation, Employee Directory, Dashboard UI |
-| **Dev 4** | Frontend + QA Lead | Kanban interaction, calendar views, responsive behavior, bug triage & test passes | Kanban Board, Leave Calendar, QA Test Plan |
+| Engineer  | Role                   | Primary Responsibilities                                                            | Module Ownership                                  |
+| :-------- | :--------------------- | :---------------------------------------------------------------------------------- | :------------------------------------------------ |
+| **Dev 1** | Tech Lead / Full-Stack | Architecture, relational schema, CI pipeline, code review, release management       | Auth & Roles, Database Schema, Staging Deployment |
+| **Dev 2** | Backend Engineer       | API design, business logic (attendance derivation, leave balances), background jobs | Attendance API, Leave API, Reports Engine         |
+| **Dev 3** | Frontend Engineer      | Navigation shell, design system tokens, forms & validation, tables & filters        | UI Foundation, Employee Directory, Dashboard UI   |
+| **Dev 4** | Frontend + QA Lead     | Kanban interaction, calendar views, responsive behavior, bug triage & test passes   | Kanban Board, Leave Calendar, QA Test Plan        |
 
 ---
 
@@ -55,20 +55,20 @@ The project was mapped for a 4-engineer team structure where every member owns d
 
 AyiPM enforces a three-tier permission model across both presentation and operational layers:
 
-| Capability / Action | Administrator | Project Manager | Employee |
-| :--- | :---: | :---: | :---: |
-| **View Dashboard Metrics** | Company-wide KPIs | Team & Sprint KPIs | Personal Work & Balances |
-| **Onboard / Deactivate Employees** |  Yes |  No |  No |
-| **Log Personal Attendance** |  Yes |  Yes |  Yes |
-| **View All Attendance Records** |  Yes |  Yes |  Limited |
-| **Export Attendance CSV** |  Yes |  Yes |  No |
-| **Submit Leave Request** |  Yes |  Yes |  Yes |
-| **Approve / Reject Leave Requests** |  Yes |  Yes |  No |
-| **Create & Update Projects** |  Yes |  Yes |  No |
-| **Create & Assign Tasks** |  Yes |  Yes |  Limited |
-| **Transition Kanban Task Status** |  Yes |  Yes |  Yes (Assigned Tasks) |
-| **Add Comments to Tasks** |  Yes |  Yes |  Yes |
-| **Access Audit Log Feed** |  Full |  Full |  Scoped |
+| Capability / Action                 |   Administrator   |  Project Manager   |         Employee         |
+| :---------------------------------- | :---------------: | :----------------: | :----------------------: |
+| **View Dashboard Metrics**          | Company-wide KPIs | Team & Sprint KPIs | Personal Work & Balances |
+| **Onboard / Deactivate Employees**  |        Yes        |         No         |            No            |
+| **Log Personal Attendance**         |        Yes        |        Yes         |           Yes            |
+| **View All Attendance Records**     |        Yes        |        Yes         |         Limited          |
+| **Export Attendance CSV**           |        Yes        |        Yes         |            No            |
+| **Submit Leave Request**            |        Yes        |        Yes         |           Yes            |
+| **Approve / Reject Leave Requests** |        Yes        |        Yes         |            No            |
+| **Create & Update Projects**        |        Yes        |        Yes         |            No            |
+| **Create & Assign Tasks**           |        Yes        |        Yes         |         Limited          |
+| **Transition Kanban Task Status**   |        Yes        |        Yes         |   Yes (Assigned Tasks)   |
+| **Add Comments to Tasks**           |        Yes        |        Yes         |           Yes            |
+| **Access Audit Log Feed**           |       Full        |        Full        |          Scoped          |
 
 ---
 
@@ -90,6 +90,7 @@ gantt
 ```
 
 ### Phase Summary:
+
 - **Week 1 — Foundation**: Tech stack locked, 12-table relational schema designed, CI pipeline configured, staging environment initialized.
 - **Phase 1 (Weeks 2–3) — Authentication, Roles & Employees**: Login, session handling, 3 user roles, department & designation management, employee CRUD with soft-deactivation.
 - **Phase 2 (Weeks 4–6) — Attendance & Leave**: Check-in/out, status derivation rules (present, late, half-day, absent), leave balances, approval workflow, automatic attendance synchronization.
@@ -102,10 +103,12 @@ gantt
 ## 🚀 Quick Start Guide
 
 ### Prerequisites
+
 - **Node.js**: v18.17.0 or newer (tested on Node v20+)
 - **npm**: v9.0.0 or newer
 
 ### Installation
+
 ```bash
 # Clone the repository
 git clone https://github.com/mahfoos/AyiPM.git
@@ -135,6 +138,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## 🔮 Post-MVP Roadmap
 
 As documented in **Section 07** of the roadmap specification:
+
 - **v1.1**: Real-time notifications (email + in-app), timesheet exports, task & project file attachments.
 - **v1.2**: Payroll & expense reimbursement engine building directly on verified attendance logs.
 - **v1.3**: Performance evaluations, quarterly OKR tracking, and 360 review cycles.

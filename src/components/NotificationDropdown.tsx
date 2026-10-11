@@ -29,7 +29,9 @@ interface NotificationDropdownProps {
   className?: string;
 }
 
-export default function NotificationDropdown({ className }: NotificationDropdownProps) {
+export default function NotificationDropdown({
+  className,
+}: NotificationDropdownProps) {
   const router = useRouter();
   const {
     notifications,
@@ -46,13 +48,15 @@ export default function NotificationDropdown({ className }: NotificationDropdown
   const [unreadOnly, setUnreadOnly] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Close on outside click
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -89,7 +93,10 @@ export default function NotificationDropdown({ className }: NotificationDropdown
       if (diffHours < 24) return `${diffHours}h ago`;
       if (diffDays === 1) return 'Yesterday';
       if (diffDays < 7) return `${diffDays}d ago`;
-      return past.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+      return past.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+      });
     } catch {
       return timestamp;
     }
@@ -144,12 +151,13 @@ export default function NotificationDropdown({ className }: NotificationDropdown
     }
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
-      const match = item.title.toLowerCase().includes(q) || item.message.toLowerCase().includes(q);
+      const match =
+        item.title.toLowerCase().includes(q) ||
+        item.message.toLowerCase().includes(q);
       if (!match) return false;
     }
     return true;
   });
-
 
   const categoryCounts = {
     all: notifications.length,
@@ -170,7 +178,11 @@ export default function NotificationDropdown({ className }: NotificationDropdown
   };
 
   return (
-    <div ref={containerRef} style={{ position: 'relative' }} className={className}>
+    <div
+      ref={containerRef}
+      style={{ position: 'relative' }}
+      className={className}
+    >
       {/* Trigger Button with Animated Alert Counter */}
       <button
         type="button"
@@ -178,7 +190,11 @@ export default function NotificationDropdown({ className }: NotificationDropdown
         onClick={() => setIsOpen(!isOpen)}
         aria-label={`Notifications (${unreadNotificationsCount} unread)`}
         aria-expanded={isOpen}
-        title={unreadNotificationsCount > 0 ? `${unreadNotificationsCount} unread notifications` : 'Notifications'}
+        title={
+          unreadNotificationsCount > 0
+            ? `${unreadNotificationsCount} unread notifications`
+            : 'Notifications'
+        }
         style={{
           position: 'relative',
           display: 'flex',
@@ -188,11 +204,15 @@ export default function NotificationDropdown({ className }: NotificationDropdown
           height: '42px',
           borderRadius: 'var(--radius-lg)',
           background: isOpen ? '#f1f5f9' : '#ffffff',
-          border: isOpen ? '1px solid var(--primary)' : '1px solid var(--border-medium)',
+          border: isOpen
+            ? '1px solid var(--primary)'
+            : '1px solid var(--border-medium)',
           color: isOpen ? 'var(--primary)' : 'var(--text-secondary)',
           cursor: 'pointer',
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-          boxShadow: isOpen ? '0 0 0 3px rgba(2, 132, 199, 0.15)' : 'var(--shadow-sm)',
+          boxShadow: isOpen
+            ? '0 0 0 3px rgba(2, 132, 199, 0.15)'
+            : 'var(--shadow-sm)',
         }}
         onMouseEnter={(e) => {
           if (!isOpen) {
@@ -230,7 +250,10 @@ export default function NotificationDropdown({ className }: NotificationDropdown
               lineHeight: '20px',
               textAlign: 'center',
               boxShadow: '0 2px 6px rgba(220, 38, 38, 0.45), 0 0 0 2px #ffffff',
-              animation: unreadNotificationsCount > 0 ? 'pulse-alert 2.5s infinite ease-in-out' : 'none',
+              animation:
+                unreadNotificationsCount > 0
+                  ? 'pulse-alert 2.5s infinite ease-in-out'
+                  : 'none',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -245,7 +268,8 @@ export default function NotificationDropdown({ className }: NotificationDropdown
       {/* Global CSS for alert pulse */}
       <style jsx global>{`
         @keyframes pulse-alert {
-          0%, 100% {
+          0%,
+          100% {
             transform: scale(1);
           }
           50% {
@@ -266,7 +290,8 @@ export default function NotificationDropdown({ className }: NotificationDropdown
             background: '#ffffff',
             border: '1px solid var(--border-medium)',
             borderRadius: 'var(--radius-xl)',
-            boxShadow: '0 20px 45px -10px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(15, 23, 42, 0.04)',
+            boxShadow:
+              '0 20px 45px -10px rgba(15, 23, 42, 0.16), 0 0 0 1px rgba(15, 23, 42, 0.04)',
             zIndex: 100,
             display: 'flex',
             flexDirection: 'column',
@@ -290,7 +315,13 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                 marginBottom: '0.875rem',
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.625rem',
+                }}
+              >
                 <h3
                   style={{
                     fontSize: '1.0625rem',
@@ -332,7 +363,13 @@ export default function NotificationDropdown({ className }: NotificationDropdown
               </div>
 
               {/* Action buttons in header */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.375rem',
+                }}
+              >
                 {unreadNotificationsCount > 0 && (
                   <button
                     type="button"
@@ -361,7 +398,8 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = '#f8fafc';
                       e.currentTarget.style.color = 'var(--text-secondary)';
-                      e.currentTarget.style.borderColor = 'var(--border-subtle)';
+                      e.currentTarget.style.borderColor =
+                        'var(--border-subtle)';
                     }}
                   >
                     <CheckCheck size={14} />
@@ -406,7 +444,11 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                 { id: 'all', label: 'All', count: categoryCounts.all },
                 { id: 'task', label: 'Tasks', count: categoryCounts.task },
                 { id: 'leave', label: 'Leaves', count: categoryCounts.leave },
-                { id: 'attendance', label: 'Attendance', count: categoryCounts.attendance },
+                {
+                  id: 'attendance',
+                  label: 'Attendance',
+                  count: categoryCounts.attendance,
+                },
                 { id: 'system', label: 'System', count: categoryCounts.system },
               ].map((tab) => {
                 const isSelected = selectedCategory === tab.id;
@@ -421,7 +463,9 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                       gap: '0.35rem',
                       padding: '0.35rem 0.7rem',
                       borderRadius: 'var(--radius-full)',
-                      border: isSelected ? '1px solid var(--primary)' : '1px solid transparent',
+                      border: isSelected
+                        ? '1px solid var(--primary)'
+                        : '1px solid transparent',
                       background: isSelected ? 'var(--primary)' : '#f1f5f9',
                       color: isSelected ? '#ffffff' : 'var(--text-secondary)',
                       fontSize: '0.75rem',
@@ -457,7 +501,9 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                   gap: '0.3rem',
                   padding: '0.35rem 0.6rem',
                   borderRadius: 'var(--radius-full)',
-                  border: unreadOnly ? '1px solid #bae6fd' : '1px solid var(--border-subtle)',
+                  border: unreadOnly
+                    ? '1px solid #bae6fd'
+                    : '1px solid var(--border-subtle)',
                   background: unreadOnly ? '#f0f9ff' : 'transparent',
                   color: unreadOnly ? 'var(--primary)' : 'var(--text-muted)',
                   fontSize: '0.72rem',
@@ -503,7 +549,6 @@ export default function NotificationDropdown({ className }: NotificationDropdown
               </div>
             </div>
           </div>
-
 
           {/* Notification List Container */}
           <div
@@ -553,8 +598,8 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                   {unreadOnly
                     ? 'No unread notifications'
                     : selectedCategory !== 'all'
-                    ? `No ${selectedCategory} notifications`
-                    : 'No notifications'}
+                      ? `No ${selectedCategory} notifications`
+                      : 'No notifications'}
                 </h4>
                 <p
                   style={{
@@ -610,10 +655,14 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                       transition: 'background 0.15s ease',
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = item.read ? '#f8fafc' : '#f0f9ff';
+                      e.currentTarget.style.background = item.read
+                        ? '#f8fafc'
+                        : '#f0f9ff';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.background = item.read ? '#ffffff' : '#f8fafc';
+                      e.currentTarget.style.background = item.read
+                        ? '#ffffff'
+                        : '#f8fafc';
                     }}
                   >
                     {/* Unread pulse dot on the left */}
@@ -625,8 +674,12 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                         width: '6px',
                         height: '6px',
                         borderRadius: '50%',
-                        background: item.read ? 'transparent' : 'var(--primary)',
-                        boxShadow: item.read ? 'none' : '0 0 6px rgba(2, 132, 199, 0.6)',
+                        background: item.read
+                          ? 'transparent'
+                          : 'var(--primary)',
+                        boxShadow: item.read
+                          ? 'none'
+                          : '0 0 6px rgba(2, 132, 199, 0.6)',
                       }}
                     />
 
@@ -672,7 +725,9 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                             style={{
                               fontSize: '0.84rem',
                               fontWeight: item.read ? 600 : 700,
-                              color: item.read ? 'var(--text-secondary)' : 'var(--text-primary)',
+                              color: item.read
+                                ? 'var(--text-secondary)'
+                                : 'var(--text-primary)',
                               lineHeight: 1.3,
                             }}
                           >
@@ -731,7 +786,9 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                       <p
                         style={{
                           fontSize: '0.78rem',
-                          color: item.read ? 'var(--text-muted)' : 'var(--text-secondary)',
+                          color: item.read
+                            ? 'var(--text-muted)'
+                            : 'var(--text-secondary)',
                           lineHeight: 1.45,
                           marginBottom: '0.35rem',
                           wordBreak: 'break-word',
@@ -780,8 +837,14 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                           {/* Toggle Read/Unread */}
                           <button
                             type="button"
-                            onClick={() => (item.read ? markAsUnread(item.id) : markAsRead(item.id))}
-                            title={item.read ? 'Mark as unread' : 'Mark as read'}
+                            onClick={() =>
+                              item.read
+                                ? markAsUnread(item.id)
+                                : markAsRead(item.id)
+                            }
+                            title={
+                              item.read ? 'Mark as unread' : 'Mark as read'
+                            }
                             style={{
                               background: 'transparent',
                               border: 'none',
@@ -803,7 +866,11 @@ export default function NotificationDropdown({ className }: NotificationDropdown
                               e.currentTarget.style.background = 'transparent';
                             }}
                           >
-                            {item.read ? <EyeOff size={13} /> : <Check size={13} />}
+                            {item.read ? (
+                              <EyeOff size={13} />
+                            ) : (
+                              <Check size={13} />
+                            )}
                             <span>{item.read ? 'Unread' : 'Read'}</span>
                           </button>
 

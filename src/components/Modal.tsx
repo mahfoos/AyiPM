@@ -11,7 +11,13 @@ interface ModalProps {
   maxWidth?: string;
 }
 
-export default function Modal({ isOpen, onClose, title, children, maxWidth = '560px' }: ModalProps) {
+export default function Modal({
+  isOpen,
+  onClose,
+  title,
+  children,
+  maxWidth = '560px',
+}: ModalProps) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
