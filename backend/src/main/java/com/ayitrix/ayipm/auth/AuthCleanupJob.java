@@ -32,7 +32,8 @@ public class AuthCleanupJob {
         this.clock = clock;
     }
 
-    @Scheduled(fixedRate = 3_600_000)
+    // The first run waits one interval, so it never competes with tests truncating these tables right after startup.
+    @Scheduled(fixedRate = 3_600_000, initialDelay = 3_600_000)
     @Transactional
     public void cleanupExpiredRecords() {
         Instant now = clock.instant();
